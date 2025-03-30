@@ -7,12 +7,6 @@
 #include <vector>
 #include <variant>
 
-struct pair_t {
-  pair_t() = default;
-  pair_t(int a, int b) : x(a), y(b) {}
-  int x;
-  int y;
-};
 
 struct SubTest2 {
     int32_t              i32      =   0;

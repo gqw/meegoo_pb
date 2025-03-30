@@ -1,15 +1,14 @@
-# ProtoTonic - C++ Zero-IDL Protobuf-like Serialization
+# MeegooProto - C++ Zero-IDL Protobuf-like Serialization
 
 ## 项目状态
-![GitHub](https://img.shields.io/github/stars/gqw/MeegooProto?style=social)
-<!-- ![CI/CD](https://github.com/gqw/MeegooProto/actions/workflows/ci.yml/badge.svg) -->
-![Version](https://img.shields.io/github/v/release/gqw/MeegooProto)
+![GitHub](https://img.shields.io/github/stars/gqw/meegoo_pb?style=social)
+<!-- ![CI/CD](https://github.com/gqw/meegoo_pb/actions/workflows/ci.yml/badge.svg) -->
+![Version](https://img.shields.io/github/v/release/gqw/meegoo_pb)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 
 ## 项目描述
-MeeGooProto 是一个基于C++11/17模板元编程的序列化框架，通过编译期反射和自动类型推导技术，实现无需IDL文件即可实现高效Protobuf格式序列化和反序列化操作。它在保持C++原生类型系统的同时，提供接近手写序列化代码的性能表现，特别适合对性能敏感且需要灵活数据结构的现代C++项目。
-
+MeegooProto 是一个基于C++11/17模板元编程的序列化框架，通过编译期反射和自动类型推导技术，实现无需IDL文件即可实现高效Protobuf格式序列化和反序列化操作。它在保持C++原生类型系统的同时，提供接近手写序列化代码的性能表现，特别适合对性能敏感且需要灵活数据结构的现代C++项目。
 
 ## 核心特性
 - ✅ **零IDL开发**：直接使用C++结构体/类进行序列化，无需编写额外描述文件
@@ -32,49 +31,63 @@ MeeGooProto 是一个基于C++11/17模板元编程的序列化框架，通过编
 
 
 ## 使用示例
-```cpp
 
+```cpp
+// 结构他体定义
+struct SubTest2 {
+    int32_t              i32      =   0;
+    int64_t              i64      =   0;
+    std::variant<float, std::string> variant;
+};
+
+struct TestAllData {
+    int32_t              i32      =   0;
+    int64_t              i64      =   0;
+    uint32_t             u32      =   0;
+    uint64_t             u64      =   0;
+    meegoo::pb::sint32_t         si32     =   0;
+    meegoo::pb::sint64_t         si64     =   0;
+    meegoo::pb::fixed32_t        fx32     =   0;
+    meegoo::pb::fixed64_t        fx64     =   0;
+    meegoo::pb::sfixed32_t       sfx32    =   0;
+    meegoo::pb::sfixed64_t       sfx64    =   0;
+    bool                 bl       =   true;
+    float                f32      =   0.0f;
+    double               d64      =   0.0;
+    std::string          str      =   "";
+    meegoo::pb::bytes            bs       =   {};
+    std::vector<int32_t> vec      =   {};
+    std::map<int32_t, int32_t>  mp =  {};
+    SubTest2             substruct =  {};
+    std::variant<float, std::string> variant;
+    meegoo::pb::google_any<int32_t>             any;
+    int32_t              i32_2      =   0;
+};
+```
+
+```cpp
+int main() {
     TestAllData data;
-    //  1,i32: 00001,000 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 00000001
     data.i32 = -100;
-    //  2,i64: 00010,000 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 00000001
     data.i64 = -100;
-    //  3,u32: 00011,000 01100100
     data.u32 = 100;
-    //  4,u64: 00100,000 01100100
     data.u64 = 100;
-    //  5,si32: 00101,000 11000111 00000001
     data.si32 = -100;
-    //  6,si64: 00110,000 11000111 00000001
     data.si64 = -100;
-    //  7,fx32: 00111,101 10011100 11111111 11111111 11111111
     data.fx32 = 100;
-    //  8,fx64: 01000,001 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111
     data.fx64 = 100;
-    // 9,sfx32: 01001,101 10011100 11111111 11111111 11111111
     data.sfx32 = -100;
-    //10,sfx64: 01010,001 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111
     data.sfx64 = -100;
-    //   11,bl: 01011,000 00000001
     data.bl = true;
-    //  12,f32: 01100,101 01100100 00000000 00000000 00000000
     data.f32 = 100.0f;
-    //  13,d64: 01101,001 01100100 00000000 00000000 00000000 00000000 00000000 00000000 00000000
     data.d64 = 100.0;
-    //  14,str: 01110,010 00000011 00110001 00110000 00110000
     data.str = "100";
-    //  15,bs:  01111,010 00000011 00000001 00000010 00000011
     data.bs = {1, 2, 3};
-    //  16,vec: 10000,000 00000001 00000011 10000000 00000001 00000100 10000000 00000001 00000101
     data.vec = {3, 4, 5};
-    //  17,mp:
     data.mp = {{1, 2}, {3, 4}};
-    //  18,test:
     data.substruct = {100, 100, 10.0f};
-    //  20,variant struct:
     data.variant = std::string("100");
     data.i32_2 = -200;
-    // 21,any:
     data.any = {{"type.googleapis.com/pb.SubTest", 100}};
 
     std::string out;
@@ -97,15 +110,15 @@ MeeGooProto 是一个基于C++11/17模板元编程的序列化框架，通过编
     std::cout << "si32: " << data2.si32 << std::endl;
     std::cout << "i32_2: " << data2.i32_2 << std::endl;
     return 0;
-
+}
 ```
 
 ### 安装方法
 ```bash
 
 # 构建
-git clone https://github.com/gqw/MeegooProto.git
-cd MeegooProto
+git clone https://github.com/gqw/meegoo_pb.git
+cd meegoo_pb
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
@@ -119,7 +132,7 @@ make -j$(nproc)
 
 ### 贡献指南
 欢迎提交 PR 改进性能或添加新功能，请遵循：
-- 保持代码符合 C++20 标准
+- 保持代码符合 C++17 标准
 - 添加完整的单元测试
 - 性能敏感代码需提供基准测试数据
 
