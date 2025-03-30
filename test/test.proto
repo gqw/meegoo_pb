@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/any.proto";
+
+message SubTest {
+  int32              i32      =   1;
+}
+
+message Test {
+  int32              i32      =   1;
+  int64              i64      =   2;
+  uint32             u32      =   3;
+  uint64             u64      =   4;
+  sint32             si32     =   5;
+  sint64             si64     =   6;
+  fixed32            fx32     =   7;
+  fixed64            fx64     =   8;
+  sfixed32           sfx32    =   9;
+  sfixed64           sfx64    =   10;
+  bool               bl       =   11;
+  float              f32      =   12;
+  double             d64      =   13;
+  string             str      =   14;
+  bytes              bs       =   15;
+  repeated int32     vec      =   16;
+  map<int32, int32>  mp       =   17;
+  SubTest            test     =   18;
+  oneof object {
+    float            obj_f32  =   19;
+    string           obj_str  =   20;
+  }
+  google.protobuf.Any gqw_any     =   21;
+}
+
+message Test2 {
+  int32              i32      =   7000;
+  uint32             u32      =   3;
+  sint64             si64     =   6;
+}
+
+message Test3 {
+  repeated int32     vec    =   1;
+}
