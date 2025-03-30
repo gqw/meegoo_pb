@@ -28,6 +28,7 @@ endif()
 file(GLOB_RECURSE SRC_FILES src/*.cpp src/*.cc)
 file(GLOB_RECURSE HEADER_FILES include/meegoopb/*.h)
 
+# message(STATUS "HEADER_FILES: ${HEADER_FILES}")
 # 添加可执行文件
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${HEADER_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC include include/meegoopb)
@@ -38,8 +39,8 @@ install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin)
 
 # 安装头文件
-install(FILES ${HEADER_FILES}
-        DESTINATION include/${PROJECT_NAME})
+install(DIRECTORY include/meegoopb/
+        DESTINATION include/)
 
 
 # gtest
