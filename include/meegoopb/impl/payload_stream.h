@@ -9,8 +9,14 @@ namespace meegoo::pb {
 
 class PayloadStream {
 public:
+    PayloadStream() = default;
     PayloadStream(uint8_t* data, size_t size)
         : data_(data), cur_(data), size_(size) {};
+
+    void reset(uint8_t* data, size_t size) {
+        cur_ = data_ = data;
+        size_ = size;
+    }
 
     uint8_t* data() const { return data_; }
     uint8_t* cur() const { return cur_; }
@@ -25,9 +31,13 @@ public:
 
     bool empty() const { return cur_ >= data_ + size_; }
 
-    uint64_t decode_varint();
-    uint32_t decode_fixed32();
-    uint64_t decode_fixed64();
+    void decode_varint(uint32_t& val);
+    void decode_varint(uint64_t& val);
+    void decode_fixed32(uint32_t& val);
+    void decode_float(float& val);
+    void decode_fixed64(uint64_t& val);
+    void decode_sfixed64(int64_t& val);
+    void decode_double(double& val);
 
 private:
     uint8_t* data_ = nullptr;
@@ -70,8 +80,7 @@ inline uint8_t* PayloadStream::read(size_t size) {
     return old;
 }
 
-inline uint64_t PayloadStream::decode_varint() {
-    uint64_t val = 0;
+inline void PayloadStream::decode_varint(uint64_t& val) {
     uint8_t* old = cur_;
     if (remain() > 0 && (*cur_ & 0x80) == 0) {
         val = *cur_;
@@ -91,29 +100,69 @@ inline uint64_t PayloadStream::decode_varint() {
             ++move_times;
         }
     }
-    return val;
 }
 
-inline uint32_t PayloadStream::decode_fixed32() {
+
+inline void PayloadStream::decode_varint(uint32_t& val) {
+    uint8_t* old = cur_;
+    if (remain() > 0 && (*cur_ & 0x80) == 0) {
+        val = *cur_;
+        ++cur_;
+    } else {
+        size_t move_times = 0;
+        while (true) {
+            if (remain() == 0 && move_times >= 9) [[unlikely]] {
+                throw std::runtime_error("invalid varint");
+            }
+            val |= uint32_t(*cur_ & 0x7f) << (move_times * 7);
+            if ((*cur_ & 0x80) == 0) {
+                ++cur_;
+                break;
+            }
+            ++cur_;
+            ++move_times;
+        }
+    }
+}
+
+inline void PayloadStream::decode_fixed32(uint32_t& val) {
     if (remain() < 4) [[unlikely]] {
         throw std::runtime_error("invalid fix32");
     }
-    uint32_t val = uint32_t(cur_[0]) | uint32_t(cur_[1]) << 8 |
+    val = uint32_t(cur_[0]) | uint32_t(cur_[1]) << 8 |
         uint32_t(cur_[2]) << 16 | uint32_t(cur_[3]) << 24;
     cur_ += 4;
-    return val;
 }
 
-inline uint64_t PayloadStream::decode_fixed64() {
+inline void PayloadStream::decode_float(float& val) {
+    if (remain() < 4) [[unlikely]] {
+        throw std::runtime_error("invalid fix32");
+    }
+    *((uint32_t*)&val) = uint32_t(cur_[0]) | uint32_t(cur_[1]) << 8 |
+        uint32_t(cur_[2]) << 16 | uint32_t(cur_[3]) << 24;
+    cur_ += 4;
+}
+
+
+inline void PayloadStream::decode_fixed64(uint64_t& val) {
     if (remain() < 8) [[unlikely]] {
         throw std::runtime_error("invalid fix32");
     }
-    uint8_t val = uint64_t(cur_[0]) | uint64_t(cur_[1]) << 8 |
+    val = uint64_t(cur_[0]) | uint64_t(cur_[1]) << 8 |
         uint64_t(cur_[2]) << 16 | uint64_t(cur_[3]) << 24 |
         uint64_t(cur_[4]) << 32 | uint64_t(cur_[5]) << 40 |
         uint64_t(cur_[6]) << 48 | uint64_t(cur_[7]) << 56;
     cur_ += 8;
-    return val;
 }
 
+inline void PayloadStream::decode_double(double& val) {
+    if (remain() < 8) [[unlikely]] {
+        throw std::runtime_error("invalid fix32");
+    }
+    *((uint64_t*)&val) = uint64_t(cur_[0]) | uint64_t(cur_[1]) << 8 |
+    uint64_t(cur_[2]) << 16 | uint64_t(cur_[3]) << 24 |
+    uint64_t(cur_[4]) << 32 |uint64_t(cur_[5]) << 40 |
+    uint64_t(cur_[6]) << 48 |uint64_t(cur_[7]) << 56;
+    cur_ += 8;
+}
 } // namespace meegoo::pb

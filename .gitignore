@@ -1,5 +1,7 @@
 /.cache
 /.vscode
 /build
+/debug
+/release
 /dist
 /node_modules

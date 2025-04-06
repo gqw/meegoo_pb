@@ -107,11 +107,11 @@ inline static void calc_pb_size( TraitType trait, FieldNumberType field_number, 
             len += tag_len;
 
             size_t key_len = 0;
-            meegoo::pb::calc_pb_size(trait, 1, meegoo::pb::calc_tag_size_constexpr(1<<3), key, key_len);
+            meegoo::pb::calc_pb_size(trait, 1, 1, key, key_len);
             len += key_len;
 
             size_t value_len = 0;
-            meegoo::pb::calc_pb_size(trait, 2, meegoo::pb::calc_tag_size_constexpr(2<<3), value, value_len);
+            meegoo::pb::calc_pb_size(trait, 2, 1, value, value_len);
             len += value_len;
 
             len += variant_uint32_size(key_len + value_len);
@@ -119,10 +119,8 @@ inline static void calc_pb_size( TraitType trait, FieldNumberType field_number, 
     } else if constexpr (is_refl_struct_v<FieldType>) {
         size_t value_len = [](auto& t){
             size_t len = 0;
-            refl_visit_members(t, [&len](const auto& t, const auto &...args) {
-                (std::visit([&t, &len](auto &arg) {
-                    calc_pb_size(arg, arg.field_number, arg.tag_len, t.*arg.offset, len);
-                }, args), ...);
+            refl_visit_tp_members(t, [&len](const auto& t, const auto &...args) {
+                (calc_pb_size(args, args.field_number, args.tag_len, t.*args.offset, len),...);
             });
             return len;
         }(field_value);
@@ -145,11 +143,11 @@ inline static void calc_pb_size( TraitType trait, FieldNumberType field_number, 
             len += value_len;
         }
     }
-    if constexpr (!is_variant_v<FieldType>) {
-        std::cout << "field_number: " << field_number
-            << ", start pos: " << old_len
-            << ", len: " << (len - old_len) << std::endl;
-    }
+    // if constexpr (!is_variant_v<FieldType>) {
+    //     std::cout << "field_number: " << field_number
+    //         << ", start pos: " << old_len
+    //         << ", len: " << (len - old_len) << std::endl;
+    // }
 }
 
 } // namespace meegoo::pb

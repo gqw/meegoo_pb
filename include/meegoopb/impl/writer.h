@@ -24,23 +24,23 @@ template <typename TraitType, typename FieldType, typename FieldNumberType, type
 inline static void encode_pb_field(TraitType& trait, FieldNumberType field_number, TagType tag_len,
         const FieldType& field_value, PayloadStream &out) {
     if constexpr (std::is_same_v<FieldType, int32_t>) {
-        if (field_value == 0)
+        if (field_value == 0) [[unlikely]]
             return;
         // int32_t 比较特殊，需要转换成 int64_t 处理
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
                 field_number, WriteVarint64ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, int64_t>) {
-        if (field_value == 0)
+        if (field_value == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
             field_number, WriteVarint64ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, uint32_t>) {
-        if (field_value == 0)
+        if (field_value == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
             field_number, WriteVarint32ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, uint64_t>) {
-        if (field_value == 0)
+        if (field_value == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
             field_number, WriteVarint64ToArray, out);
@@ -83,12 +83,12 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         if (field_value == 0.0f)
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED32, field_value,
-            field_number, WriteLittleEndian32ToArray, out);
+            field_number, WriteLittleEndianFloatToArray, out);
     } else if constexpr (std::is_same_v<FieldType, double>) {
         if (field_value == 0.0)
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED64, field_value,
-            field_number, WriteLittleEndian64ToArray, out);
+            field_number, WriteLittleEndianDoubleToArray, out);
     } else if constexpr (std::is_same_v<FieldType, std::string>
             || std::is_same_v<FieldType, meegoo::pb::bytes>) {
         if (field_value.empty())
@@ -118,10 +118,10 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
     } else if constexpr (meegoo::pb::is_associat_container<FieldType>::value) {
         for (const auto& [key, value] : field_value) {
             size_t key_len = 0;
-            meegoo::pb::calc_pb_size(trait, 1, meegoo::pb::calc_tag_size_constexpr(1<<3), key, key_len);
+            meegoo::pb::calc_pb_size(trait, 1, 1, key, key_len);
 
             size_t value_len = 0;
-            meegoo::pb::calc_pb_size(trait, 2, meegoo::pb::calc_tag_size_constexpr(2<<3), value, key_len);
+            meegoo::pb::calc_pb_size(trait, 2, 1, value, key_len);
 
             uint8_t* target = out.cur();
             target = WriteTagToArray(field_number, WireType::WIRETYPE_LENGTH_DELIMITED, target);
@@ -133,10 +133,8 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
     } else if constexpr (is_refl_struct_v<FieldType>) {
         size_t value_len = [](auto& t){
             size_t len = 0;
-            refl_visit_members(t, [&len](const auto& t, const auto &...args) {
-                (std::visit([&t, &len](auto &arg) {
-                    calc_pb_size(arg, arg.field_number, arg.tag_len, t.*arg.offset, len);
-                }, args), ...);
+            refl_visit_tp_members(t, [&len](const auto& t, const auto &...args) {
+                (calc_pb_size(args, args.field_number, args.tag_len, t.*args.offset, len),...);
             });
             return len;
         }(field_value);
@@ -148,10 +146,8 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         target = WriteVarint32ToArray(value_len, target);
         out.set_cur(target);
         {
-            refl_visit_members(field_value, [&out](const auto& t, const auto &...args) {
-                (std::visit([&t, &out](auto &arg) {
-                    encode_pb_field(arg, arg.field_number, arg.tag_len, t.*arg.offset, out);
-                }, args), ...);
+            refl_visit_tp_members(field_value, [&out](const auto& t, const auto &...args) {
+                (encode_pb_field(args, args.field_number, args.tag_len, t.*args.offset, out), ...);
             });
         }
     } else if constexpr (is_variant_v<FieldType>) {

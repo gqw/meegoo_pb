@@ -136,14 +136,21 @@ inline static constexpr decltype(auto) read_tuple_to_map(TupleTrait tp_trait) {
 }
 
 template <typename T, typename Visitor, typename OrderedMap, std::size_t... Indices>
-inline static constexpr decltype(auto) visit_tuple_impl(T& t, OrderedMap &&tp, Visitor &&visitor,
+inline static constexpr decltype(auto) visit_map_impl(T& t, OrderedMap &&tp, Visitor &&visitor,
                                                         std::index_sequence<Indices...>) {
     // 展开索引序列，依次将 OrderedMap 的每个元素传递给 visitor
     return visitor(t, ((tp.begin() + Indices)->second)...);
 }
 
 template <typename T, typename Visitor, typename OrderedMap, std::size_t... Indices>
-inline static constexpr decltype(auto) visit_tuple_impl(const T& t, OrderedMap &&tp, Visitor &&visitor,
+inline static constexpr decltype(auto) visit_tuple_impl(T& t, OrderedMap &&tp, Visitor &&visitor,
+                                                        std::index_sequence<Indices...>) {
+    // 展开索引序列，依次将 OrderedMap 的每个元素传递给 visitor
+    return visitor(t, (std::get<Indices>(tp))...);
+}
+
+template <typename T, typename Visitor, typename OrderedMap, std::size_t... Indices>
+inline static constexpr decltype(auto) visit_map_impl(const T& t, OrderedMap &&tp, Visitor &&visitor,
                                                         std::index_sequence<Indices...>) {
     // 展开索引序列，依次将 OrderedMap 的每个元素传递给 visitor
     return visitor(t, ((tp.begin() + Indices)->second)...);
@@ -171,8 +178,7 @@ struct is_associat_container
     : std::integral_constant<
             bool, is_template_instant_of<std::map, T>::value ||
                     is_template_instant_of<std::unordered_map, T>::value> {};
-
-
+                    
 // 定义一个检测模板
 template <typename, typename = std::void_t<>>
 struct is_refl_struct : std::false_type {};

@@ -1,6 +1,10 @@
 #pragma once
 
+#include <bitset>
 #include <cstdint>
+#include <iostream>
+#include <iomanip>
+
 #include <meegoopb/define.h>
 
 namespace meegoo::pb {
@@ -69,6 +73,16 @@ inline uint8_t *WriteLittleEndian32ToArray(uint32_t value, uint8_t *target) {
     return target + sizeof(value);
 }
 
+inline uint8_t *WriteLittleEndianFloatToArray(float value, uint8_t *target) {
+   
+    target[0] = static_cast<uint8_t>(*((uint32_t*)&value));
+    target[1] = static_cast<uint8_t>(*((uint32_t*)&value) >> 8);
+    target[2] = static_cast<uint8_t>(*((uint32_t*)&value) >> 16);
+    target[3] = static_cast<uint8_t>(*((uint32_t*)&value) >> 24);
+    return target + sizeof(value);
+}
+
+
 inline uint8_t *WriteLittleEndian64ToArray(uint64_t value, uint8_t *target) {
     uint32_t part0 = static_cast<uint32_t>(value);
     uint32_t part1 = static_cast<uint32_t>(value >> 32);
@@ -83,6 +97,19 @@ inline uint8_t *WriteLittleEndian64ToArray(uint64_t value, uint8_t *target) {
     target[7] = static_cast<uint8_t>(part1 >> 24);
     return target + sizeof(value);
 }
+
+inline uint8_t *WriteLittleEndianDoubleToArray(double value, uint8_t *target) {
+    target[0] = static_cast<uint8_t>(*((uint64_t*)&value));
+    target[1] = static_cast<uint8_t>(*((uint64_t*)&value) >> 8);
+    target[2] = static_cast<uint8_t>(*((uint64_t*)&value) >> 16);
+    target[3] = static_cast<uint8_t>(*((uint64_t*)&value) >> 24);
+    target[4] = static_cast<uint8_t>(*((uint64_t*)&value) >> 32);
+    target[5] = static_cast<uint8_t>(*((uint64_t*)&value) >> 40);
+    target[6] = static_cast<uint8_t>(*((uint64_t*)&value) >> 48);
+    target[7] = static_cast<uint8_t>(*((uint64_t*)&value) >> 56);
+    return target + sizeof(value);
+}
+
 
 inline uint32_t log2_floor_uint32(uint32_t n) {
     return 31 ^ static_cast<uint32_t>(__builtin_clz(n));
@@ -101,6 +128,21 @@ inline uint32_t log2_floor_uint64(uint64_t n) {
 inline size_t variant_uint64_size(uint64_t value) {
     uint32_t log2value = log2_floor_uint64(value | 0x1);
     return static_cast<size_t>((log2value * 9 + 73) / 64);
+}
+
+
+inline void DebugPrint(std::string_view out) {
+    std::cout << "size: " << out.size() << std::endl;
+    std::cout <<  std::right << std::setw(3) <<  0 << ": ";
+    for (size_t i = 0; i < out.size(); i++) {
+        std::bitset<8> bits(out[i]);
+        std::cout << std::hex  << bits << " ";
+        if (i % 10 == 9) {
+            std::cout << std::endl;
+            std::cout << std::right << std::setw(3)  << std::dec <<  i + 1 << ": ";
+        }
+    }
+    std::cout << std::dec << std::endl;
 }
 
 } // namespace meegoo::pb

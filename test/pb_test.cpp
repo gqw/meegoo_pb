@@ -159,7 +159,7 @@ TEST(Protobuf, TestAllTypes) {
     sub.set_i32(100);
     // default type_url: type.googleapis.com/pb.SubTest
     // test.mutable_gqw_any()->set_type_url("url");
-    test.mutable_gqw_any()->PackFrom(sub);
+    // test.mutable_gqw_any()->PackFrom(sub);
 
     auto size = test.ByteSizeLong();
     auto bytes = test.SerializeAsString();

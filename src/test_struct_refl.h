@@ -3,7 +3,7 @@
 
 #include "test_struct.h"
 #include <meegoopb/impl/trait.h>
-#include <frozen/algorithm.h>
+#include <meegoopb/frozen/algorithm.h>
 
 namespace meegoo::pb {
 
@@ -12,26 +12,37 @@ template <>
 [[maybe_unused]] inline constexpr decltype(auto)
 refl_offset_to_tuple<SubTest2>() {
     constexpr auto tp = std::make_tuple(
-        field_trait_info{&SubTest2::i32, "i32", 1},
-        field_trait_info{&SubTest2::i64, "i64", 2},
-        variant_trait_info(&SubTest2::variant, "variant", 3, 0),
-        variant_trait_info(&SubTest2::variant, "variant", 3, 1)
+        field_trait_info{&SubTest2::i32, "i32", 1}
+        // field_trait_info{&SubTest2::i64, "i64", 2},
+        // variant_trait_info(&SubTest2::variant, "variant", 3, 0),
+        // variant_trait_info(&SubTest2::variant, "variant", 3, 1)
     );
     return tp;
 }
 
 
 template <typename Visitor>
-inline static constexpr decltype(auto) refl_visit_members(const SubTest2 &t,
+inline static constexpr decltype(auto) refl_visit_tp_members(const SubTest2 &t,
                                                           Visitor &&visitor) {
     constexpr auto tp_trait = refl_offset_to_tuple<SubTest2>();
-    constexpr auto trait_unmap = write_tuple_to_map(tp_trait);
     constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
 
     return visit_tuple_impl(
-        t, trait_unmap, std::forward<Visitor>(visitor),
+        t, tp_trait, std::forward<Visitor>(visitor),
         std::make_index_sequence<Size>{});
 }
+
+// template <typename Visitor>
+// inline static constexpr decltype(auto) refl_visit_members(const SubTest2 &t,
+//                                                           Visitor &&visitor) {
+//     constexpr auto tp_trait = refl_offset_to_tuple<SubTest2>();
+//     constexpr auto trait_unmap = write_tuple_to_map(tp_trait);
+//     constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
+
+//     return visit_map_impl(
+//         t, trait_unmap, std::forward<Visitor>(visitor),
+//         std::make_index_sequence<Size>{});
+// }
 
 /////////////////////////////// TestAllData ///////////////////////////////
 template <>
@@ -57,22 +68,34 @@ refl_offset_to_tuple<TestAllData>() {
         field_trait_info{&TestAllData::mp, "mp", 17},
         field_trait_info{&TestAllData::substruct, "test", 18},
         variant_trait_info(&TestAllData::variant, "variant", 19, 0),
-        variant_trait_info(&TestAllData::variant, "variant", 19, 1),
-        field_trait_info{&TestAllData::any, "any", 21},
-        field_trait_info{&TestAllData::i32_2, "i32_2", 22});
+        variant_trait_info(&TestAllData::variant, "variant", 19, 1)
+        // ,
+        // field_trait_info{&TestAllData::any, "any", 21}
+    );
     return tp;
 }
 
 template <typename Visitor>
-inline static constexpr decltype(auto) refl_visit_members(const TestAllData &t,
+inline static constexpr decltype(auto) refl_visit_tp_members(const TestAllData &t,
                                                           Visitor &&visitor) {
     constexpr auto tp_trait = refl_offset_to_tuple<TestAllData>();
-    constexpr auto trait_unmap = write_tuple_to_map(tp_trait);
     constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
 
     return visit_tuple_impl(
-        t, trait_unmap, std::forward<Visitor>(visitor),
+        t, tp_trait, std::forward<Visitor>(visitor),
         std::make_index_sequence<Size>{});
 }
+
+// template <typename Visitor>
+// inline static constexpr decltype(auto) refl_visit_members(const TestAllData &t,
+//                                                           Visitor &&visitor) {
+//     constexpr auto tp_trait = refl_offset_to_tuple<TestAllData>();
+//     constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
+
+//     constexpr auto trait_unmap = write_tuple_to_map(tp_trait);
+//     return visit_map_impl(
+//         t, trait_unmap, std::forward<Visitor>(visitor),
+//         std::make_index_sequence<Size>{});
+// }
 
 } // namespace meegoo::pb

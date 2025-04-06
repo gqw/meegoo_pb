@@ -1,13 +1,6 @@
 #include <meegoopb/pb.h>
 #include "test_struct.h"
 #include "test_struct_refl.h"
-#include <iostream>
-#include <bitset>
-#include <variant>
-
-#include <frozen/map.h>
-#include <frozen/unordered_map.h>
-#include <frozen/set.h>
 
 using namespace meegoo::pb;
 
@@ -59,15 +52,7 @@ int main() {
     out.resize(pb_size(data));
     std::cout << "*** pb_size: " << out.size() << std::endl;
     auto ret = to_pb(data, out);
-    std::cout << "size: " << out.size() << std::endl;
-    for (size_t i = 0; i < out.size(); i++) {
-        std::bitset<8> bits(out[i]);
-        std::cout << std::hex  << bits << " ";
-        if (i % 10 == 9) {
-            std::cout << std::endl;
-        }
-    }
-    std::cout << std::dec << std::endl;
+    DebugPrint(out);
 
     TestAllData data2;
     from_pb(data2, out);

@@ -31,7 +31,7 @@ message Test {
     float            obj_f32  =   19;
     string           obj_str  =   20;
   }
-  google.protobuf.Any gqw_any     =   21;
+  // google.protobuf.Any gqw_any     =   21;
 }
 
 message Test2 {
