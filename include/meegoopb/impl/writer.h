@@ -45,32 +45,32 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
             field_number, WriteVarint64ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::sint32_t>) {
-        if (field_value.val == 0)
+        if (field_value.val == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, ZigZagEncode32(field_value),
             field_number, WriteVarint32ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::sint64_t>) {
-        if (field_value.val == 0)
+        if (field_value.val == 0)  [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, ZigZagEncode64(field_value),
             field_number, WriteVarint64ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::fixed32_t>) {
-        if (field_value.val == 0)
+        if (field_value.val == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED32, field_value,
             field_number, WriteLittleEndian32ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::fixed64_t>) {
-        if (field_value.val == 0)
+        if (field_value.val == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED64, field_value,
             field_number, WriteLittleEndian64ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::sfixed32_t>) {
-        if (field_value.val == 0)
+        if (field_value.val == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED32, static_cast<uint32_t>(field_value),
             field_number, WriteLittleEndian32ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::sfixed64_t>) {
-        if (field_value.val == 0)
+        if (field_value.val == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED64, static_cast<uint64_t>(field_value),
             field_number, WriteLittleEndian64ToArray, out);
@@ -80,18 +80,18 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
             field_number, WriteVarint32ToArray, out);
     } else if constexpr (std::is_same_v<FieldType, float>) {
-        if (field_value == 0.0f)
+        if (field_value == 0.0f) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED32, field_value,
             field_number, WriteLittleEndianFloatToArray, out);
     } else if constexpr (std::is_same_v<FieldType, double>) {
-        if (field_value == 0.0)
+        if (field_value == 0.0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_FIXED64, field_value,
             field_number, WriteLittleEndianDoubleToArray, out);
     } else if constexpr (std::is_same_v<FieldType, std::string>
             || std::is_same_v<FieldType, meegoo::pb::bytes>) {
-        if (field_value.empty())
+        if (field_value.empty()) [[unlikely]]
             return;
         uint8_t* target = out.cur();
         target = WriteTagToArray(field_number, WireType::WIRETYPE_LENGTH_DELIMITED, target);
@@ -100,7 +100,7 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         std::memcpy(target, value.data(), value.size());
         out.set_cur(target + value.size());
     } else if constexpr (meegoo::pb::is_sequence_container<FieldType>::value) {
-        if (field_value.empty())
+        if (field_value.empty()) [[unlikely]]
             return;
         size_t value_len = 0;
         for (size_t i = 0; i < field_value.size(); ++i) {
@@ -116,12 +116,14 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
             encode_pb_field(trait, 0, tag_len, value[i], out);
         }
     } else if constexpr (meegoo::pb::is_associat_container<FieldType>::value) {
+        if (field_value.empty()) [[unlikely]]
+            return;
         for (const auto& [key, value] : field_value) {
             size_t key_len = 0;
             meegoo::pb::calc_pb_size(trait, 1, 1, key, key_len);
 
             size_t value_len = 0;
-            meegoo::pb::calc_pb_size(trait, 2, 1, value, key_len);
+            meegoo::pb::calc_pb_size(trait, 2, 1, value, value_len);
 
             uint8_t* target = out.cur();
             target = WriteTagToArray(field_number, WireType::WIRETYPE_LENGTH_DELIMITED, target);
