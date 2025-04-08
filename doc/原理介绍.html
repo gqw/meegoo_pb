@@ -1,0 +1,431 @@
+<!DOCTYPE html><html><head>
+      <title>原理介绍</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/libai/.vscode-server/extensions/shd101wyy.markdown-preview-enhanced-0.8.18/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h2 id="meegoo-序列化器原理介绍">Meegoo 序列化器原理介绍 </h2>
+<div class="code-chunk" data-id="code-chunk-id-0" data-cmd="toc"><div class="input-div"><div class="code-chunk-btn-group"><div class="run-btn btn btn-xs btn-primary"><span>▶︎</span></div><div class="run-all-btn btn btn-xs btn-primary">all</div></div><div class="status">running...</div></div><div class="output-div"></div></div><ul>
+<li><a href="#meegoo-%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D">Meegoo 序列化器原理介绍</a>
+<ul>
+<li><a href="#protobuf-%E7%BC%96%E7%A0%81%E8%A7%84%E5%88%99">Protobuf 编码规则</a></li>
+<li><a href="#protobuf-%E5%BA%8F%E5%88%97%E5%8C%96%E5%AE%9E%E7%8E%B0">Protobuf 序列化实现</a></li>
+<li><a href="#meegoo-%E5%AE%9E%E7%8E%B0">Meegoo 实现</a>
+<ul>
+<li><a href="#%E9%9C%80%E8%A6%81%E5%93%AA%E4%BA%9B%E5%8F%8D%E5%B0%84%E4%BF%A1%E6%81%AF">需要哪些反射信息</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84%E4%BF%A1%E6%81%AF-example">反射信息 Example</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E7%82%B9">优化点</a></li>
+</ul>
+</li>
+<li><a href="#benchmark">Benchmark</a></li>
+<li><a href="#%E4%BC%98%E5%8A%A3%E5%8A%BF%E6%AF%94%E8%BE%83">优劣势比较</a></li>
+</ul>
+</li>
+</ul>
+<p>序列化的本质是对象的状态信息转换为可以存储或传输的格式（如Binary字节流、JSON 字符串、XML ），为了实现序列化我们必须定义格式标准，同样反序列化必须能够理解相应的标准。Meegoo是对Protobuf标准格式的序列化和序列化，所以想要实现相应功能，我们必须要充分理解Protobuf的编码标准 <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+<h3 id="protobuf-编码规则">Protobuf 编码规则 </h3>
+<p>Protobuf编码大致可以分为<code>T-V</code>和<code>T-L-V</code>两种形式。 在这里<code>T</code>表示Tag的意思，它由 field_number + wire_type 两部分组成。<code>L</code>表示Length的意思，对于 wire_type == LEN(2) 类型的需要额外添加value长度信息，其它类型不需要。<code>V</code>代表实际的值。</p>
+<p>为了理解 Protobuf 我们以一个详细的例子来说明 Protobuf 支持的各种类型的序列化格式。</p>
+<pre data-role="codeBlock" data-info="proto" class="language-proto proto"><code>syntax = "proto3";
+
+package pb;
+
+message SubTest {
+  int32              i32      =   1;
+}
+
+message Test {
+  int32              i32      =   1;
+  int64              i64      =   2;
+  uint32             u32      =   3;
+  uint64             u64      =   4;
+  sint32             si32     =   5;
+  sint64             si64     =   6;
+  fixed32            fx32     =   7;
+  fixed64            fx64     =   8;
+  sfixed32           sfx32    =   9;
+  sfixed64           sfx64    =   10;
+  bool               bl       =   11;
+  float              f32      =   12;
+  double             d64      =   13;
+  string             str      =   14;
+  bytes              bs       =   15;
+  repeated int32     vec      =   16;
+  map&lt;int32, int32&gt;  mp       =   17;
+  SubTest            test     =   18;
+  oneof object {
+    float            obj_f32  =   19;
+    string           obj_str  =   20;
+  }
+}
+</code></pre><pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>pb<span class="token double-colon punctuation">::</span>Test test<span class="token punctuation">;</span>
+<span class="token comment">// 00001,000 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 00000001</span>
+<span class="token comment">//    |        |</span>
+<span class="token comment">//    |        -------------- (value: -100)</span>
+<span class="token comment">//    ----------------------- (field number: 1, wire type: 0, varint变成类型)</span>
+test<span class="token punctuation">.</span><span class="token function">set_i32</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 00010,000 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 00000001</span>
+<span class="token comment">//    |        |</span>
+<span class="token comment">//    |        -------------- (value: -100)</span>
+<span class="token comment">//    ----------------------- (field number: 2, wire type: 0, varint变成类型)</span>
+test<span class="token punctuation">.</span><span class="token function">set_i64</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 00011,000 01100100</span>
+<span class="token comment">//    |        |</span>
+<span class="token comment">//    |        -------------- (value: 100)</span>
+<span class="token comment">//    ----------------------- (field number: 3, wire type: 0, varint变成类型)</span>
+test<span class="token punctuation">.</span><span class="token function">set_u32</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 00100,000 01100100</span>
+<span class="token comment">//    |        |</span>
+<span class="token comment">//    |        -------------- (value: 100)</span>
+<span class="token comment">//    ----------------------- (field number: 4, wire type: 0, varint变成类型)</span>
+test<span class="token punctuation">.</span><span class="token function">set_u64</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 00101,000 11000111 00000001</span>
+<span class="token comment">//    |        |         |</span>
+<span class="token comment">//    |        -------------- (value: 100)</span>
+<span class="token comment">//    ----------------------- (field number: 5, wire type: 0, varint变成类型)</span>
+test<span class="token punctuation">.</span><span class="token function">set_si32</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 00110,000 11000111 00000001</span>
+<span class="token comment">//    |        |         |</span>
+<span class="token comment">//    |        -------------- (value: 100)</span>
+<span class="token comment">//    ----------------------- (field number: 6, wire type: 0, varint变成类型)</span>
+test<span class="token punctuation">.</span><span class="token function">set_si64</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 00111,101 01100100 00000000 00000000 00000000</span>
+<span class="token comment">//    |        |         |          |        |</span>
+<span class="token comment">//    |        -------------- (value: 100) ---</span>
+<span class="token comment">//    ----------------------- (field number: 7, wire type: 5, 固定4字节)</span>
+test<span class="token punctuation">.</span><span class="token function">set_fx32</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01000,001 01100100 00000000 00000000 00000000 00000000 00000000 00000000 00000000</span>
+<span class="token comment">//    |        |         |          |        |      |        |         |          |</span>
+<span class="token comment">//    |        -------------- (value: 100) ----------------------------------------</span>
+<span class="token comment">//    ----------------------- (field number: 8, wire type: 1, 固定8字节)</span>
+test<span class="token punctuation">.</span><span class="token function">set_fx64</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01001,101 01100100 00000000 00000000 00000000</span>
+<span class="token comment">//    |        |         |          |        |</span>
+<span class="token comment">//    |        -------------- (value: 100) ---</span>
+<span class="token comment">//    ----------------------- (field number: 9, wire type: 5, 固定4字节)</span>
+test<span class="token punctuation">.</span><span class="token function">set_sfx32</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01010,001 01100100 00000000 00000000 00000000 00000000 00000000 00000000 00000000</span>
+<span class="token comment">//    |        |         |          |        |      |        |         |          |</span>
+<span class="token comment">//    |        -------------- (value: 100) ----------------------------------------</span>
+<span class="token comment">//    ----------------------- (field number: 10, wire type: 1, 固定8字节)</span>
+test<span class="token punctuation">.</span><span class="token function">set_sfx64</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01011,000 00000001</span>
+<span class="token comment">//    |        |</span>
+<span class="token comment">//    |        -------------- (value: 100)</span>
+<span class="token comment">//    ----------------------- (field number: 11)</span>
+test<span class="token punctuation">.</span><span class="token function">set_bl</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01100,101 00000000 00000000 11001000 01000010</span>
+<span class="token comment">//    |        |         |          |        |</span>
+<span class="token comment">//    |        -------------- (value: 100.0) -</span>
+<span class="token comment">//    ----------------------- (field number: 12, wire type: 5, 固定4字节)</span>
+test<span class="token punctuation">.</span><span class="token function">set_f32</span><span class="token punctuation">(</span><span class="token number">100.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01101,001 00000000 00000000 00000000 00000000 00000000 00000000 01011001 01000000</span>
+<span class="token comment">//    |        |         |          |        |      |        |         |          |</span>
+<span class="token comment">//    |        -------------- (value: 100.0) --------------------------------------</span>
+<span class="token comment">//    ----------------------- (field number: 13, wire type: 5, 固定4字节)</span>
+test<span class="token punctuation">.</span><span class="token function">set_d64</span><span class="token punctuation">(</span><span class="token number">100.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01110,010 00000011 00110001 00110000 00110000</span>
+<span class="token comment">//    |        |         |          |        |</span>
+<span class="token comment">//    |        |         ---- (value: "100") -</span>
+<span class="token comment">//    |        -------------- (len: 3)</span>
+<span class="token comment">//    ----------------------- (field number: 14, wire type: 2, Length-delimited)</span>
+test<span class="token punctuation">.</span><span class="token function">set_str</span><span class="token punctuation">(</span><span class="token string">"100"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 01111,010 00000101 00000001 00000010 00000011 00000100 00000101</span>
+<span class="token comment">//    |        |         |          |        |       |        |</span>
+<span class="token comment">//    |        |         ---- (value: 1,2,3,4,5) --------------</span>
+<span class="token comment">//    |        -------------- (len: 5)</span>
+<span class="token comment">//    ----------------------- (field number: 15, wire type: 2, Length-delimited)</span>
+test<span class="token punctuation">.</span><span class="token function">set_bs</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 10000010 00000001 00000011 00000011 00000100 00000101</span>
+<span class="token comment">//    |        |         |          |        |       |</span>
+<span class="token comment">//    |        |         |          ---(value: 3,4,5) --</span>
+<span class="token comment">//    |        |         ---- (len: 3)</span>
+<span class="token comment">//    ----------------------- (field number: 16, wire type: 2, Length-delimited)</span>
+<span class="token comment">//</span>
+<span class="token comment">// note： field number: 16, 根据 varint 编码规则, 需要用2个字节表示</span>
+test<span class="token punctuation">.</span><span class="token function">add_vec</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+test<span class="token punctuation">.</span><span class="token function">add_vec</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+test<span class="token punctuation">.</span><span class="token function">add_vec</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 10001,010 00000001 00000100 00001,000 00000011 00010,000 00000100</span>
+<span class="token comment">// 10001,010 00000001 00000100 00001,000 00000001 00010,000 00000010</span>
+<span class="token comment">//    |        |         |          |        |       |        |</span>
+<span class="token comment">//    |        |         |          |        |       |        -- (real value: 2 &amp; 4)</span>
+<span class="token comment">//    |        |         |          |        |       ---- (value field number: 2, wire type: 0)</span>
+<span class="token comment">//    |        |         |          |        ---- (key value: 3 &amp; 1)</span>
+<span class="token comment">//    |        |         |          ---- (key field number: 1, type: 2, wire type: 0)</span>
+<span class="token comment">//    |        |         ---- (len: 4)</span>
+<span class="token comment">//    ----------------------- (field number: 17, type: 2, Length-delimited)</span>
+test<span class="token punctuation">.</span><span class="token function">mutable_mp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+test<span class="token punctuation">.</span><span class="token function">mutable_mp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 10010,010 00000001 00000010 00001,000 01100100</span>
+<span class="token comment">//    |        |         |          |        |</span>
+<span class="token comment">//    |        |         |          |        ---- (value: 100)</span>
+<span class="token comment">//    |        |         |          ---- (field number: 1, type: 0)</span>
+<span class="token comment">//    |        |         ---- (len: 2)</span>
+<span class="token comment">//    ----------------------- (field number: 18, type: 2, Length-delimited)</span>
+test<span class="token punctuation">.</span><span class="token function">mutable_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span><span class="token function">set_i32</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 10100,010 00000001 00000011 00110001 00110000 00110000</span>
+<span class="token comment">//    |        |         |          |        |       |</span>
+<span class="token comment">//    |        |         |          ---- (value: "100")</span>
+<span class="token comment">//    |        |         ---- (len: 3)</span>
+<span class="token comment">//    ----------------------- (field number: 20, type: 2, Length-delimited)</span>
+test<span class="token punctuation">.</span><span class="token function">set_obj_str</span><span class="token punctuation">(</span><span class="token string">"100"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>在上面例子中的注释中，已经详细标注了各种类型数据的编码方法，但是需要个别说明以下几点：</p>
+<ol>
+<li>
+<p>int32 与 int64 结果是一样的， protobuf统一以 int64 方式处理，如果负数除了tag信息外都需要10字节存储实际的 value 值。为什么是10字节，因为 Varint 编码的每字节最高位为 msb 表示的是此字节是否为最后一字节。所以每字节只能存储7bit信息，64数据需要 (64 / 7 + 1)字节。</p>
+</li>
+<li>
+<p>sint32 和 sint64 需要额外进行 ZigZag 编码。Protobuf 本质上是通过去除二进制编码中冗余的0达到压缩的目的的，比如64bit的数字1二进制表示为：<code>00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001</code> 实际上有效信息位只有最后的1。Varint编码只保留了最后的 <code>00000001</code> 实现了1 : 8的压缩比。但是对于负数 -1 二进制 <code>11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111</code>，对此Varint却无能为力，为此Protobuf通过 ZigZag 将符号位与信息为颠倒达，即最低位表示符号位， 其余位（1~63bit）表示信息位这样 -1 就表示成了<code>00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001</code>再经过Varint编码只保留了<code>00000001</code>同样实现了1 : 8的压缩比。</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>ZigZag 计算过程，(n&lt;1) ^ (n&gt;64)：
+11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111110
+^11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
+---------------------------------------------------------------------------
+00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+</code></pre></li>
+<li>
+<p>float, double 为固定的4/8字节，对于小数值浮点数如果根据精度转换为uint/sint更具性价比。</p>
+</li>
+</ol>
+<h3 id="protobuf-序列化实现">Protobuf 序列化实现 </h3>
+<p>Google Protobuf为了实现将对象信息序列化成Binary字符流，需要先由用户定义 IDL文件（即.proto文件）。然后使用工具protoc解析IDL语法，生成相应的代码。对于我们实际项目，我们需要根据ros .msg文件生成对等的.proto文件再有protoc生成相应的代码。</p>
+<p>在此过程中protoc工具程序可以通过IDL文件获得encode/decode所需的全部信息。</p>
+<h3 id="meegoo-实现">Meegoo 实现 </h3>
+<p>Meegoo 并不需要IDL提供序列化信息，那它从哪里获得encode/decode需要的信息呢？答案是利用C++定义的结构体提取结构和字段的特征信息，并由用户提供少许反射信息（这部分信息可以有ros .msg提供）。</p>
+<h4 id="需要哪些反射信息">需要哪些反射信息 </h4>
+<ol>
+<li>类成员指针</li>
+<li>字段名（可以不用，仅为了方便调试）</li>
+<li>字段序号 (Protobuf 特有信息)</li>
+<li>遍历所有字段的能力 (c++ 26前无法自动实现)</li>
+</ol>
+<h4 id="反射信息-example">反射信息 Example </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">// 生成并提供基本的反射信息（类成员指针、字段名、序号）</span>
+<span class="token keyword keyword-template">template</span> <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
+<span class="token punctuation">[</span><span class="token punctuation">[</span>maybe_unused<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token keyword keyword-inline">inline</span> <span class="token keyword keyword-constexpr">constexpr</span> <span class="token keyword keyword-decltype">decltype</span><span class="token punctuation">(</span><span class="token keyword keyword-auto">auto</span><span class="token punctuation">)</span>
+<span class="token generic-function"><span class="token function">refl_offset_to_tuple</span><span class="token generic class-name"><span class="token operator">&lt;</span>TestAllData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-constexpr">constexpr</span> <span class="token keyword keyword-auto">auto</span> tp <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_tuple</span><span class="token punctuation">(</span>
+        field_trait_info<span class="token punctuation">{</span><span class="token operator">&amp;</span>TestAllData<span class="token double-colon punctuation">::</span>i32<span class="token punctuation">,</span> <span class="token string">"i32"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        field_trait_info<span class="token punctuation">{</span><span class="token operator">&amp;</span>TestAllData<span class="token double-colon punctuation">::</span>i64<span class="token punctuation">,</span> <span class="token string">"i64"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token function">variant_trait_info</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>TestAllData<span class="token double-colon punctuation">::</span>variant<span class="token punctuation">,</span> <span class="token string">"variant"</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">variant_trait_info</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>TestAllData<span class="token double-colon punctuation">::</span>variant<span class="token punctuation">,</span> <span class="token string">"variant"</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> tp<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 提供遍历字段的能力</span>
+<span class="token keyword keyword-template">template</span> <span class="token operator">&lt;</span><span class="token keyword keyword-typename">typename</span> <span class="token class-name">Visitor</span><span class="token operator">&gt;</span>
+<span class="token keyword keyword-inline">inline</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-constexpr">constexpr</span> <span class="token keyword keyword-decltype">decltype</span><span class="token punctuation">(</span><span class="token keyword keyword-auto">auto</span><span class="token punctuation">)</span> <span class="token function">refl_visit_tp_members</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> TestAllData <span class="token operator">&amp;</span>t<span class="token punctuation">,</span>
+                                                          Visitor <span class="token operator">&amp;&amp;</span>visitor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-constexpr">constexpr</span> <span class="token keyword keyword-auto">auto</span> tp_trait <span class="token operator">=</span> <span class="token generic-function"><span class="token function">refl_offset_to_tuple</span><span class="token generic class-name"><span class="token operator">&lt;</span>TestAllData<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-constexpr">constexpr</span> <span class="token keyword keyword-auto">auto</span> Size <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>tuple_size_v<span class="token operator">&lt;</span><span class="token keyword keyword-decltype">decltype</span><span class="token punctuation">(</span>tp_trait<span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-return">return</span> <span class="token function">visit_tuple_impl</span><span class="token punctuation">(</span>
+        t<span class="token punctuation">,</span> tp_trait<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>Visitor<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>visitor<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        std<span class="token double-colon punctuation">::</span>make_index_sequence<span class="token operator">&lt;</span>Size<span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>refl_offset_to_tuple函数生成并提供基本的反射信息（类成员指针、字段名、序号），refl_visit_tp_members 提供遍历字段的能力。</p>
+<p>在refl_offset_to_tuple函数中字段信息是以std::tuple的形式给出的。refl_visit_tp_members实质上是对这个tule的遍历。</p>
+<p>在visit_tuple_impl实现中</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-template">template</span> <span class="token operator">&lt;</span><span class="token keyword keyword-typename">typename</span> <span class="token class-name">T</span><span class="token punctuation">,</span> <span class="token keyword keyword-typename">typename</span> <span class="token class-name">Visitor</span><span class="token punctuation">,</span> <span class="token keyword keyword-typename">typename</span> <span class="token class-name">TupleType</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>size_t<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Indices<span class="token operator">&gt;</span>
+<span class="token keyword keyword-inline">inline</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-constexpr">constexpr</span> <span class="token keyword keyword-decltype">decltype</span><span class="token punctuation">(</span><span class="token keyword keyword-auto">auto</span><span class="token punctuation">)</span> <span class="token function">visit_tuple_impl</span><span class="token punctuation">(</span>T<span class="token operator">&amp;</span> t<span class="token punctuation">,</span> TupleType <span class="token operator">&amp;&amp;</span>tp<span class="token punctuation">,</span> Visitor <span class="token operator">&amp;&amp;</span>visitor<span class="token punctuation">,</span>
+                                                        std<span class="token double-colon punctuation">::</span>index_sequence<span class="token operator">&lt;</span>Indices<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 展开索引序列，依次将 TupleType 的每个元素传递给 visitor</span>
+    <span class="token keyword keyword-return">return</span> <span class="token function">visitor</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>Indices<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>，通过折叠表达式将tuple转化为</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token function">visitor</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> 字段<span class="token number">1</span><span class="token punctuation">,</span> 字段<span class="token number">2</span><span class="token punctuation">,</span> 字段<span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>的形式。</p>
+<p>在序列化时，visitor再使用逗号表达式依次对各个字段依次处理，比如to_pb函数：</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-template">template</span> <span class="token operator">&lt;</span><span class="token keyword keyword-typename">typename</span> <span class="token class-name">T</span><span class="token operator">&gt;</span>
+<span class="token keyword keyword-inline">inline</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-bool">bool</span> <span class="token function">to_pb</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> T <span class="token operator">&amp;</span>t<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string <span class="token operator">&amp;</span>out<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-thread_local">thread_local</span> PayloadStream stream<span class="token punctuation">;</span>
+    stream<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token generic-function"><span class="token function">reinterpret_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword keyword-uint8_t">uint8_t</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>out<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> out<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">refl_visit_tp_members</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> T<span class="token operator">&amp;</span> t<span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> <span class="token keyword keyword-auto">auto</span> <span class="token operator">&amp;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">(</span><span class="token function">encode_pb_field</span><span class="token punctuation">(</span>args<span class="token punctuation">,</span> args<span class="token punctuation">.</span>field_number<span class="token punctuation">,</span> args<span class="token punctuation">.</span>tag_len<span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token operator">*</span>args<span class="token punctuation">.</span>offset<span class="token punctuation">,</span> stream<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>encode_pb_field函数是每个字段的处理函数：</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-template">template</span> <span class="token operator">&lt;</span><span class="token keyword keyword-typename">typename</span> <span class="token class-name">TraitType</span><span class="token punctuation">,</span> <span class="token keyword keyword-typename">typename</span> <span class="token class-name">FieldType</span><span class="token punctuation">,</span> <span class="token keyword keyword-typename">typename</span> <span class="token class-name">FieldNumberType</span><span class="token punctuation">,</span> <span class="token keyword keyword-typename">typename</span> <span class="token class-name">TagType</span><span class="token operator">&gt;</span>
+<span class="token keyword keyword-inline">inline</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">encode_pb_field</span><span class="token punctuation">(</span>TraitType<span class="token operator">&amp;</span> trait<span class="token punctuation">,</span> FieldNumberType field_number<span class="token punctuation">,</span> TagType tag_len<span class="token punctuation">,</span>
+        <span class="token keyword keyword-const">const</span> FieldType<span class="token operator">&amp;</span> field_value<span class="token punctuation">,</span> PayloadStream <span class="token operator">&amp;</span>out<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token keyword keyword-constexpr">constexpr</span> <span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>is_same_v<span class="token operator">&lt;</span>FieldType<span class="token punctuation">,</span> <span class="token keyword keyword-int32_t">int32_t</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>field_value <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>unlikely<span class="token punctuation">]</span><span class="token punctuation">]</span>
+            <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+        <span class="token comment">// int32_t 比较特殊，需要转换成 int64_t 处理</span>
+        <span class="token function">encode_pb_number_field</span><span class="token punctuation">(</span>WireType<span class="token double-colon punctuation">::</span>WIRETYPE_VARINT<span class="token punctuation">,</span> field_value<span class="token punctuation">,</span>
+                field_number<span class="token punctuation">,</span> WriteVarint64ToArray<span class="token punctuation">,</span> out<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token keyword keyword-constexpr">constexpr</span> <span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>is_same_v<span class="token operator">&lt;</span>FieldType<span class="token punctuation">,</span> <span class="token keyword keyword-int64_t">int64_t</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>field_value <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>unlikely<span class="token punctuation">]</span><span class="token punctuation">]</span>
+            <span class="token keyword keyword-return">return</span><span class="token punctuation">;</span>
+        <span class="token function">encode_pb_number_field</span><span class="token punctuation">(</span>WireType<span class="token double-colon punctuation">::</span>WIRETYPE_VARINT<span class="token punctuation">,</span> field_value<span class="token punctuation">,</span>
+            field_number<span class="token punctuation">,</span> WriteVarint64ToArray<span class="token punctuation">,</span> out<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+</code></pre><h4 id="优化点">优化点 </h4>
+<ol>
+<li>
+<p>尽可能的使用常量表达式 constexpr ，让计算放在编译器，减少运行时开销。比如：</p>
+<ul>
+<li>特征tuple创建</li>
+<li>Tag 长度计算</li>
+<li>Varint field number计算</li>
+<li>字段个数</li>
+<li>字段类型判断</li>
+</ul>
+</li>
+<li>
+<p>使用 static thread_local 减少临时变量的创建</p>
+</li>
+<li>
+<p>使用 inline function 减少函数调用</p>
+</li>
+<li>
+<p>使用 unlikely/likely 优化cpu分支预测</p>
+</li>
+<li>
+<p>由于已经知道了字段类型，所以没有必要处理wire type字段</p>
+</li>
+<li>
+<p>使用位操作优化大小端序列化和 ZigZag 操作</p>
+</li>
+</ol>
+<h3 id="benchmark">Benchmark </h3>
+<p>下面是对 Protobuf 三个版本做的benchmark, 一千万次序列化+反序列化，全类型耗时（代码在./test/benchmark.cpp）：</p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>desc</th>
+<th>耗时(ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Benchmark.pb</td>
+<td>原始google protobuf</td>
+<td>4793</td>
+</tr>
+<tr>
+<td>Benchmark.pb2</td>
+<td>优化版，无拷贝</td>
+<td>3341</td>
+</tr>
+<tr>
+<td>Benchmark.meegoo</td>
+<td>自己实现版本</td>
+<td>1835</td>
+</tr>
+</tbody>
+</table>
+<p>meegoo 性能较好的主要原因在于：</p>
+<ol>
+<li>
+<p>无赋值复制</p>
+</li>
+<li>
+<p>减少了 pb 临时对象的创建（实际上有两个，序列化和反序列各有一个，上面的测试只有一个，也就是说线上产品性能应该更差）</p>
+</li>
+<li>
+<p>Meegoo 专事特办，只关心序列化内容，没有冗余逻辑</p>
+<ul>
+<li>对比protobuf 没有考虑多线程问题，没有加入锁</li>
+<li>计算大小和序列化反序列化都 没有UnknownFields的判断和处理</li>
+<li>由于限制了用户使用， 所以不需要考虑内存不够的情况 protobuf 需要 EnsureSpace</li>
+<li>双层判断改为单层， has_bits检查 + 是否为默认值</li>
+<li>赋值时没有 has_bits 设置</li>
+</ul>
+</li>
+</ol>
+<h3 id="优劣势比较">优劣势比较 </h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">性能</th>
+<th style="text-align:center">功能完善程度</th>
+<th style="text-align:center">稳定</th>
+<th style="text-align:center">简洁</th>
+<th style="text-align:center">使用便利性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google Protobuf</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>Meegoo</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+</tbody>
+</table>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://protobuf.dev/programming-guides/encoding/">Protobuf Encoding</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

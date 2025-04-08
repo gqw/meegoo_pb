@@ -18,12 +18,16 @@ template <typename TraitType, typename FieldType, typename FieldNumberType, type
 inline static void calc_pb_size( TraitType trait, FieldNumberType field_number, TagType tag_len,
                                 const FieldType &field_value, size_t &len) {
     size_t old_len = len;
-    if constexpr (std::is_same_v<FieldType, int32_t>) {
+    if constexpr (std::is_same_v<FieldType, int32_t>
+        || std::is_same_v<FieldType, int8_t>
+        || std::is_same_v<FieldType, int16_t>) {
         if (field_value == 0)
             return;
         len += tag_len;
         len += variant_uint64_size(field_value);
-    } else if constexpr (std::is_same_v<FieldType, int64_t>) {
+    } else if constexpr (std::is_same_v<FieldType, int64_t>
+        || std::is_same_v<FieldType, uint8_t>
+        || std::is_same_v<FieldType, uint16_t>) {
         if (field_value == 0)
             return;
         len += tag_len;
@@ -51,46 +55,43 @@ inline static void calc_pb_size( TraitType trait, FieldNumberType field_number, 
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::fixed32_t>) {
         if (field_value.val == 0)
             return;
-        len += tag_len;
-        len += 4;
+        len += (tag_len + 4);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::fixed64_t>) {
         if (field_value.val == 0)
             return;
-        len += tag_len;
-        len += 8;
+        len += (tag_len + 8);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::sfixed32_t>) {
         if (field_value.val == 0)
             return;
-        len += tag_len;
-        len += 4;
+        len += (tag_len + 4);
     } else if constexpr (std::is_same_v<FieldType, meegoo::pb::sfixed64_t>) {
         if (field_value.val == 0)
             return;
-        len += tag_len;
-        len += 8;
+        len += (tag_len + 8);
     } else if constexpr (std::is_same_v<FieldType, bool>) {
         if (field_value == false)
             return;
-        len += tag_len;
-        len += 1;
+        len += (tag_len + 1);
     } else if constexpr (std::is_same_v<FieldType, float>) {
         if (field_value == 0.0f)
             return;
-        len += tag_len;
-        len += 4;
+        len += (tag_len + 4);
     } else if constexpr (std::is_same_v<FieldType, double>) {
         if (field_value == 0.0)
             return;
-        len += tag_len;
-        len += 8;
-    } else if constexpr (std::is_same_v<FieldType, std::string> ||
-                         std::is_same_v<FieldType, meegoo::pb::bytes>) {
+        len += (tag_len + 8);
+    } else if constexpr (std::is_same_v<FieldType, std::string> 
+                        || std::is_same_v<FieldType, meegoo::pb::bytes>
+                        || std::is_same_v<FieldType, std::vector<int8_t>>
+                        || std::is_same_v<FieldType, std::vector<uint8_t>>
+                        || (meegoo::pb::is_array_v<FieldType> && sizeof(FieldType) == 1)) {
         if (field_value.empty())
             return;
         len += tag_len;
         len += variant_uint32_size(field_value.size());
         len += field_value.size();
-    } else if constexpr (meegoo::pb::is_sequence_container<FieldType>::value) {
+    } else if constexpr (meegoo::pb::is_sequence_container<FieldType>::value 
+        || (meegoo::pb::is_array_v<FieldType> && sizeof(FieldType) > 1)) {
         if (field_value.empty())
             return;
 

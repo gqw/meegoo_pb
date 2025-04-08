@@ -111,7 +111,7 @@ inline void PayloadStream::decode_varint(uint32_t& val) {
     } else {
         size_t move_times = 0;
         while (true) {
-            if (remain() == 0 && move_times >= 9) [[unlikely]] {
+            if (remain() <= 0 && move_times >= 9) [[unlikely]] {
                 throw std::runtime_error("invalid varint");
             }
             val |= uint32_t(*cur_ & 0x7f) << (move_times * 7);

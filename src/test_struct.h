@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <meegoopb/define.h>
 
 #include <string>
@@ -36,4 +37,29 @@ struct TestAllData {
     std::variant<float, std::string> variant;
     meegoo::pb::google_any<int32_t>             any;
     int32_t              i32_2      =   0;
+};
+
+
+struct RosMsgData {
+    int8_t              i8       =   0;
+    int16_t             i16      =   0;
+    int32_t             i32      =   0;
+    int64_t             i64      =   0;
+
+    uint8_t              ui8       =   0;
+    uint16_t             ui16      =   0;
+    uint32_t             ui32      =   0;
+    uint64_t             ui64      =   0;
+
+    float                f32      =   0.0f;
+    double               d64      =   0.0;
+
+    std::string          str      =   "";
+    std::array<uint8_t, 10>     byte_arry = {0};
+    std::array<int8_t, 10>      ubyte_arry = {0};
+    std::vector<uint8_t>        byte_vec = {0};
+    std::vector<int8_t>         ubyte_vec = {0};
+
+    std::vector<uint32_t>       uint32_vec = {0};
+    std::vector<std::string>    str_vec = {0};
 };

@@ -1,3 +1,4 @@
+#include "impl/util.h"
 #include "test.pb.h"
 #include <gtest/gtest.h>
 
@@ -6,41 +7,41 @@
 
 TEST(Protobuf, TestAllTypes) {
     pb::Test test;
-    // 00001,000 01100100
+    // 00001,000 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 00000001
     //    |        |
-    //    |        -------------- (value: 100)
-    //    ----------------------- (field number: 1)
-    test.set_i32(100);
+    //    |        -------------- (value: -100)
+    //    ----------------------- (field number: 1, wire type: 0, varint变成类型)
+    test.set_i32(-100);
 
-    // 00010,000 01100100
+    // 00010,000 10011100 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 00000001
     //    |        |
-    //    |        -------------- (value: 100)
-    //    ----------------------- (field number: 2)
-    test.set_i64(100);
+    //    |        -------------- (value: -100)
+    //    ----------------------- (field number: 2, wire type: 0, varint变成类型)
+    test.set_i64(-100);
 
     // 00011,000 01100100
     //    |        |
     //    |        -------------- (value: 100)
-    //    ----------------------- (field number: 3)
+    //    ----------------------- (field number: 3, wire type: 0, varint变成类型)
     test.set_u32(100);
 
     // 00100,000 01100100
     //    |        |
     //    |        -------------- (value: 100)
-    //    ----------------------- (field number: 4)
+    //    ----------------------- (field number: 4, wire type: 0, varint变成类型)
     test.set_u64(100);
 
-    // 00101,000 11001000 00000001
+    // 00101,000 11000111 00000001
     //    |        |         |
     //    |        -------------- (value: 100)
-    //    ----------------------- (field number: 5)
-    test.set_si32(100);
+    //    ----------------------- (field number: 5, wire type: 0, varint变成类型)
+    test.set_si32(-100);
 
-    // 00110,000 11001000 00000001
+    // 00110,000 11000111 00000001
     //    |        |         |
     //    |        -------------- (value: 100)
-    //    ----------------------- (field number: 6)
-    test.set_si64(100);
+    //    ----------------------- (field number: 6, wire type: 0, varint变成类型)
+    test.set_si64(-100);
 
     // 00111,101 01100100 00000000 00000000 00000000
     //    |        |         |          |        |
@@ -165,19 +166,7 @@ TEST(Protobuf, TestAllTypes) {
     auto bytes = test.SerializeAsString();
 
     ASSERT_EQ(size, bytes.size());
-    std::cout << "size: " << size << std::endl;
-    for (size_t i = 0; i < size; i++) {
-        char c = bytes[i];
-        std::bitset<8> bits(c);
-        std::cout << std::hex  << bits << " ";
-        // if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')  || c == '.') {
-        //     std::cout << std::dec  << c << " ";
-        // }
-        if (i % 10 == 9) {
-            std::cout << std::endl;
-        }
-    }
-    std::cout << std::endl;
+    meegoo::pb::DebugPrint(bytes);
 
     test.ParseFromString(bytes);
     // size: 109

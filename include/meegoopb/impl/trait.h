@@ -200,4 +200,12 @@ struct is_variant<std::variant<T...>> : std::true_type {};
 template <typename T>
 constexpr inline bool is_variant_v = is_variant<T>::value;
 
+template <typename T>
+struct is_array : std::false_type {};
+
+template <typename T, std::size_t N>
+struct is_array<std::array<T, N>> : std::true_type {};
+
+template <typename T>
+constexpr inline bool is_array_v = is_array<T>::value;
 }  // namespace meegoo::pb

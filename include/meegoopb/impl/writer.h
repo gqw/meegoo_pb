@@ -23,7 +23,9 @@ inline static void encode_pb_number_field(WireType type, const T& value,
 template <typename TraitType, typename FieldType, typename FieldNumberType, typename TagType>
 inline static void encode_pb_field(TraitType& trait, FieldNumberType field_number, TagType tag_len,
         const FieldType& field_value, PayloadStream &out) {
-    if constexpr (std::is_same_v<FieldType, int32_t>) {
+    if constexpr (std::is_same_v<FieldType, int32_t> 
+        || std::is_same_v<FieldType, int8_t>
+        || std::is_same_v<FieldType, int16_t>) {
         if (field_value == 0) [[unlikely]]
             return;
         // int32_t 比较特殊，需要转换成 int64_t 处理
@@ -34,7 +36,9 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
             field_number, WriteVarint64ToArray, out);
-    } else if constexpr (std::is_same_v<FieldType, uint32_t>) {
+    } else if constexpr (std::is_same_v<FieldType, uint32_t> 
+        || std::is_same_v<FieldType, uint8_t>
+        || std::is_same_v<FieldType, uint16_t>) {
         if (field_value == 0) [[unlikely]]
             return;
         encode_pb_number_field(WireType::WIRETYPE_VARINT, field_value,
@@ -90,7 +94,10 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         encode_pb_number_field(WireType::WIRETYPE_FIXED64, field_value,
             field_number, WriteLittleEndianDoubleToArray, out);
     } else if constexpr (std::is_same_v<FieldType, std::string>
-            || std::is_same_v<FieldType, meegoo::pb::bytes>) {
+            || std::is_same_v<FieldType, meegoo::pb::bytes>
+            || std::is_same_v<FieldType, std::vector<int8_t>>
+            || std::is_same_v<FieldType, std::vector<uint8_t>>
+            || (meegoo::pb::is_array_v<FieldType> && sizeof(FieldType) == 1)) {
         if (field_value.empty()) [[unlikely]]
             return;
         uint8_t* target = out.cur();
@@ -99,7 +106,8 @@ inline static void encode_pb_field(TraitType& trait, FieldNumberType field_numbe
         target = WriteVarint32ToArray(value.size(), target);
         std::memcpy(target, value.data(), value.size());
         out.set_cur(target + value.size());
-    } else if constexpr (meegoo::pb::is_sequence_container<FieldType>::value) {
+    } else if constexpr (meegoo::pb::is_sequence_container<FieldType>::value 
+        || (meegoo::pb::is_array_v<FieldType> && sizeof(FieldType) > 1)) {
         if (field_value.empty()) [[unlikely]]
             return;
         size_t value_len = 0;

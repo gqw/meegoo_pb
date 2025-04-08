@@ -86,6 +86,9 @@ TEST(benchmark, pb2) {
     
     for (int i = 0; i < TEST_COUNT; ++i) {
         pb::Test test2;
+        // pb::Test test3;
+
+
         buf.resize(test.ByteSizeLong());
         test.SerializeToArray(buf.data(), buf.size());
         test.ParseFromArray(buf.data(), buf.size());

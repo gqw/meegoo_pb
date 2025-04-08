@@ -55,13 +55,17 @@ inline static void decode_pb_field(T& t, PayloadStream &in) {
 template <typename TraitType, typename FieldType>
 inline static void decode_pb_field_value(TraitType& trait, FieldType& field_value,  PayloadStream &in) {
 
-    if constexpr (std::is_same_v<FieldType, int32_t>) {
+    if constexpr (std::is_same_v<FieldType, int32_t> 
+        || std::is_same_v<FieldType, int8_t>
+        || std::is_same_v<FieldType, int16_t>) {
         uint64_t val = 0;
         in.decode_varint(reinterpret_cast<uint64_t&>(val));
         field_value = val;
     } else if constexpr (std::is_same_v<FieldType, int64_t>) {
         in.decode_varint(reinterpret_cast<uint64_t&>(field_value));
-    } else if constexpr (std::is_same_v<FieldType, uint32_t>) {
+    } else if constexpr (std::is_same_v<FieldType, uint32_t> 
+        || std::is_same_v<FieldType, uint8_t>
+        || std::is_same_v<FieldType, uint16_t>) {
         in.decode_varint(reinterpret_cast<uint32_t&>(field_value));
     } else if constexpr (std::is_same_v<FieldType, uint64_t>) {
         in.decode_varint(field_value);
@@ -85,17 +89,26 @@ inline static void decode_pb_field_value(TraitType& trait, FieldType& field_valu
         in.decode_float(field_value);
     } else if constexpr (std::is_same_v<FieldType, double>) {
         in.decode_double(field_value);
-    } else if constexpr (std::is_same_v<FieldType, std::string>) {
+    } else if constexpr (std::is_same_v<FieldType, std::string>
+        || std::is_same_v<FieldType, meegoo::pb::bytes>
+        || std::is_same_v<FieldType, std::vector<int8_t>>
+        || std::is_same_v<FieldType, std::vector<uint8_t>>
+        || (meegoo::pb::is_array_v<FieldType> && sizeof(FieldType) == 1)) {
         uint64_t len = 0;
         in.decode_varint(len);
         uint8_t* buf = in.read(len);
-        field_value.resize(len);
+        if constexpr (!meegoo::pb::is_array_v<FieldType>) {
+            field_value.resize(len);
+        }
         memcpy(field_value.data(), buf, len);
-    } else if constexpr (std::is_same_v<FieldType, meegoo::pb::bytes>) {
+    } else if constexpr (std::is_same_v<FieldType, meegoo::pb::bytes> 
+        || (meegoo::pb::is_array_v<FieldType> && sizeof(FieldType) > 1)) {
         uint64_t len = 0;
         in.decode_varint(len);
         uint8_t* buf = in.read(len);
-        field_value.resize(len);
+        if constexpr (!meegoo::pb::is_array_v<FieldType>) {
+            field_value.resize(len);
+        }
         memcpy(field_value.data(), buf, len);
     }else if constexpr (meegoo::pb::is_sequence_container<FieldType>::value) {
         field_value.clear();
