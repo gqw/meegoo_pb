@@ -54,12 +54,15 @@ struct RosMsgData {
     float                f32      =   0.0f;
     double               d64      =   0.0;
 
-    std::string          str      =   "";
-    std::array<uint8_t, 10>     byte_arry = {0};
-    std::array<int8_t, 10>      ubyte_arry = {0};
-    std::vector<uint8_t>        byte_vec = {0};
-    std::vector<int8_t>         ubyte_vec = {0};
+    std::string          str      =   "";                 // 11
+    std::array<uint8_t, 10>     byte_arry = {0};          // 12
+    std::array<int8_t, 10>      ubyte_arry = {0};         // 13
+    std::vector<uint8_t>        byte_vec = {0};             // 14
+    std::vector<int8_t>         ubyte_vec = {0};            // 15
 
-    std::vector<uint32_t>       uint32_vec = {0};
-    std::vector<std::string>    str_vec = {0};
+    std::vector<uint32_t>       uint32_vec = {0};           // 16
+    std::vector<std::string>    str_vec = {};               // 17
+    std::array<uint32_t,5>      uint32_array = {0};        // 18
 };
+
+

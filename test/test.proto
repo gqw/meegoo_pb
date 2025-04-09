@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package pb;
 
-import "google/protobuf/any.proto";
+// import "google/protobuf/any.proto";
 
 message SubTest {
   int32              i32      =   1;
@@ -42,4 +42,37 @@ message Test2 {
 
 message Test3 {
   repeated int32     vec    =   1;
+}
+
+message RosMsg {
+    int32               i8       =   1;
+    int32               i16      =   2;
+    int32               i32      =   3;
+    int64               i64      =   4;
+
+    uint32              ui8       =   5;
+    uint32              ui16      =   6;
+    uint32              ui32      =   7;
+    uint64              ui64      =   8;
+
+    float               f32      =   9;
+    double              d64      =   10;
+
+    string              str      =   11;
+    bytes              byte_arry =  12;
+    bytes              ubyte_arry = 13;
+    bytes              byte_vec =   14;
+    bytes              ubyte_vec =  15;
+
+    repeated uint32     uint32_vec = 16;
+    repeated string     str_vec = 17;
+    repeated uint32     uint32_array = 18;
+}
+
+message RosTest2 {
+    repeated string     str_vec = 17;
+}
+
+message RosTest3 {
+    repeated uint32     uint32_vec = 16;
 }

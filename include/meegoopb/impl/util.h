@@ -6,6 +6,7 @@
 #include <iomanip>
 
 #include <meegoopb/define.h>
+#include <string_view>
 
 namespace meegoo::pb {
 
@@ -131,8 +132,8 @@ inline size_t variant_uint64_size(uint64_t value) {
 }
 
 
-inline void DebugPrint(std::string_view out) {
-    std::cout << "size: " << out.size() << std::endl;
+inline void DebugPrint(std::string_view out, std::string_view name = "") {
+    std::cout << "name: " << name.data() << " size: " << out.size() << std::endl;
     std::cout <<  std::right << std::setw(3) <<  0 << ": ";
     for (size_t i = 0; i < out.size(); i++) {
         std::bitset<8> bits(out[i]);

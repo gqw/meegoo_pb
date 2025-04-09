@@ -150,14 +150,41 @@ inline static constexpr decltype(auto) visit_tuple_impl(T& t, OrderedMap &&tp, V
 }
 
 template <typename T, typename Visitor, typename OrderedMap, std::size_t... Indices>
-inline static constexpr decltype(auto) visit_map_impl(const T& t, OrderedMap &&tp, Visitor &&visitor,
+inline static constexpr decltype(auto) visit_tuple_impl(const T& t, OrderedMap &&tp, Visitor &&visitor,
                                                         std::index_sequence<Indices...>) {
     // 展开索引序列，依次将 OrderedMap 的每个元素传递给 visitor
-    return visitor(t, ((tp.begin() + Indices)->second)...);
+    return visitor(t, (std::get<Indices>(tp))...);
 }
 
+// template <typename T, typename Visitor, typename OrderedMap, std::size_t... Indices>
+// inline static constexpr decltype(auto) visit_map_impl(const T& t, OrderedMap &&tp, Visitor &&visitor,
+//                                                         std::index_sequence<Indices...>) {
+//     // 展开索引序列，依次将 OrderedMap 的每个元素传递给 visitor
+//     return visitor(t, ((tp.begin() + Indices)->second)...);
+// }
 
 
+template <typename T, typename Visitor>
+inline static constexpr decltype(auto) refl_visit_tp_members(const T &t,
+                                                          Visitor &&visitor) {
+    constexpr auto tp_trait = refl_offset_to_tuple<T>();
+    constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
+
+    return visit_tuple_impl(
+        t, tp_trait, std::forward<Visitor>(visitor),
+        std::make_index_sequence<Size>{});
+}
+
+template <typename T, typename Visitor>
+inline static constexpr decltype(auto) refl_visit_tp_members(T &t,
+                                                          Visitor &&visitor) {
+    constexpr auto tp_trait = refl_offset_to_tuple<T>();
+    constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
+
+    return visit_tuple_impl(
+        t, tp_trait, std::forward<Visitor>(visitor),
+        std::make_index_sequence<Size>{});
+}
 
 template <template <typename...> class U, typename T>
 struct is_template_instant_of : std::false_type {};
@@ -208,4 +235,15 @@ struct is_array<std::array<T, N>> : std::true_type {};
 
 template <typename T>
 constexpr inline bool is_array_v = is_array<T>::value;
+
+template <typename T>
+struct is_byte_array : std::false_type {};
+
+// 针对 std::array<T, N> 的特化
+template <typename T, std::size_t N>
+struct is_byte_array<std::array<T, N>> : std::integral_constant<bool, (sizeof(T) == 1)> {};
+
+// 提供一个变量模板，方便使用
+template <typename T>
+constexpr inline bool is_byte_array_v = is_byte_array<T>::value;
 }  // namespace meegoo::pb

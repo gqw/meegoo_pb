@@ -20,30 +20,6 @@ refl_offset_to_tuple<SubTest2>() {
     return tp;
 }
 
-
-template <typename Visitor>
-inline static constexpr decltype(auto) refl_visit_tp_members(const SubTest2 &t,
-                                                          Visitor &&visitor) {
-    constexpr auto tp_trait = refl_offset_to_tuple<SubTest2>();
-    constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
-
-    return visit_tuple_impl(
-        t, tp_trait, std::forward<Visitor>(visitor),
-        std::make_index_sequence<Size>{});
-}
-
-// template <typename Visitor>
-// inline static constexpr decltype(auto) refl_visit_members(const SubTest2 &t,
-//                                                           Visitor &&visitor) {
-//     constexpr auto tp_trait = refl_offset_to_tuple<SubTest2>();
-//     constexpr auto trait_unmap = write_tuple_to_map(tp_trait);
-//     constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
-
-//     return visit_map_impl(
-//         t, trait_unmap, std::forward<Visitor>(visitor),
-//         std::make_index_sequence<Size>{});
-// }
-
 /////////////////////////////// TestAllData ///////////////////////////////
 template <>
 [[maybe_unused]] inline constexpr decltype(auto)
@@ -75,30 +51,6 @@ refl_offset_to_tuple<TestAllData>() {
     return tp;
 }
 
-template <typename Visitor>
-inline static constexpr decltype(auto) refl_visit_tp_members(const TestAllData &t,
-                                                          Visitor &&visitor) {
-    constexpr auto tp_trait = refl_offset_to_tuple<TestAllData>();
-    constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
-
-    return visit_tuple_impl(
-        t, tp_trait, std::forward<Visitor>(visitor),
-        std::make_index_sequence<Size>{});
-}
-
-// template <typename Visitor>
-// inline static constexpr decltype(auto) refl_visit_members(const TestAllData &t,
-//                                                           Visitor &&visitor) {
-//     constexpr auto tp_trait = refl_offset_to_tuple<TestAllData>();
-//     constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
-
-//     constexpr auto trait_unmap = write_tuple_to_map(tp_trait);
-//     return visit_map_impl(
-//         t, trait_unmap, std::forward<Visitor>(visitor),
-//         std::make_index_sequence<Size>{});
-// }
-
-
 /////////////////////////////// TestAllData ///////////////////////////////
 template <>
 [[maybe_unused]] inline constexpr decltype(auto)
@@ -116,22 +68,14 @@ refl_offset_to_tuple<RosMsgData>() {
         field_trait_info{&RosMsgData::d64, "d64", 10},
         field_trait_info{&RosMsgData::str, "str", 11},
         field_trait_info{&RosMsgData::byte_arry, "byte_arry", 12},
-        field_trait_info{&RosMsgData::byte_vec, "byte_vec", 13},
-        field_trait_info{&RosMsgData::uint32_vec, "uint32_vec", 14},
-        field_trait_info{&RosMsgData::str_vec, "str_vec", 15}
+        field_trait_info{&RosMsgData::ubyte_arry, "ubyte_arry", 13},
+        field_trait_info{&RosMsgData::byte_vec, "byte_vec", 14},
+        field_trait_info{&RosMsgData::ubyte_vec, "ubyte_vec", 15},
+        field_trait_info{&RosMsgData::uint32_vec, "uint32_vec", 16},
+        field_trait_info{&RosMsgData::str_vec, "str_vec", 17},
+        field_trait_info{&RosMsgData::uint32_array, "uint32_array", 18}
     );
     return tp;
-}
-
-template <typename Visitor>
-inline static constexpr decltype(auto) refl_visit_tp_members(const RosMsgData &t,
-                                                          Visitor &&visitor) {
-    constexpr auto tp_trait = refl_offset_to_tuple<RosMsgData>();
-    constexpr auto Size = std::tuple_size_v<decltype(tp_trait)>;
-
-    return visit_tuple_impl(
-        t, tp_trait, std::forward<Visitor>(visitor),
-        std::make_index_sequence<Size>{});
 }
 
 } // namespace meegoo::pb

@@ -34,7 +34,6 @@
 #include <google/protobuf/map_entry.h>
 #include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/unknown_field_set.h>
-#include <google/protobuf/any.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_test_2eproto
@@ -50,7 +49,7 @@ struct TableStruct_test_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,6 +57,15 @@ struct TableStruct_test_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_test_2eproto;
 namespace pb {
+class RosMsg;
+struct RosMsgDefaultTypeInternal;
+extern RosMsgDefaultTypeInternal _RosMsg_default_instance_;
+class RosTest2;
+struct RosTest2DefaultTypeInternal;
+extern RosTest2DefaultTypeInternal _RosTest2_default_instance_;
+class RosTest3;
+struct RosTest3DefaultTypeInternal;
+extern RosTest3DefaultTypeInternal _RosTest3_default_instance_;
 class SubTest;
 struct SubTestDefaultTypeInternal;
 extern SubTestDefaultTypeInternal _SubTest_default_instance_;
@@ -75,6 +83,9 @@ struct Test_MpEntry_DoNotUseDefaultTypeInternal;
 extern Test_MpEntry_DoNotUseDefaultTypeInternal _Test_MpEntry_DoNotUse_default_instance_;
 }  // namespace pb
 PROTOBUF_NAMESPACE_OPEN
+template<> ::pb::RosMsg* Arena::CreateMaybeMessage<::pb::RosMsg>(Arena*);
+template<> ::pb::RosTest2* Arena::CreateMaybeMessage<::pb::RosTest2>(Arena*);
+template<> ::pb::RosTest3* Arena::CreateMaybeMessage<::pb::RosTest3>(Arena*);
 template<> ::pb::SubTest* Arena::CreateMaybeMessage<::pb::SubTest>(Arena*);
 template<> ::pb::Test* Arena::CreateMaybeMessage<::pb::Test>(Arena*);
 template<> ::pb::Test2* Arena::CreateMaybeMessage<::pb::Test2>(Arena*);
@@ -1013,6 +1024,728 @@ class Test3 final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_test_2eproto;
 };
+// -------------------------------------------------------------------
+
+class RosMsg final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:pb.RosMsg) */ {
+ public:
+  inline RosMsg() : RosMsg(nullptr) {}
+  ~RosMsg() override;
+  explicit constexpr RosMsg(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RosMsg(const RosMsg& from);
+  RosMsg(RosMsg&& from) noexcept
+    : RosMsg() {
+    *this = ::std::move(from);
+  }
+
+  inline RosMsg& operator=(const RosMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RosMsg& operator=(RosMsg&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RosMsg& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RosMsg* internal_default_instance() {
+    return reinterpret_cast<const RosMsg*>(
+               &_RosMsg_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(RosMsg& a, RosMsg& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RosMsg* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RosMsg* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RosMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RosMsg>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RosMsg& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const RosMsg& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RosMsg* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "pb.RosMsg";
+  }
+  protected:
+  explicit RosMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUint32VecFieldNumber = 16,
+    kStrVecFieldNumber = 17,
+    kUint32ArrayFieldNumber = 18,
+    kStrFieldNumber = 11,
+    kByteArryFieldNumber = 12,
+    kUbyteArryFieldNumber = 13,
+    kByteVecFieldNumber = 14,
+    kUbyteVecFieldNumber = 15,
+    kI8FieldNumber = 1,
+    kI16FieldNumber = 2,
+    kI64FieldNumber = 4,
+    kI32FieldNumber = 3,
+    kUi8FieldNumber = 5,
+    kUi16FieldNumber = 6,
+    kUi32FieldNumber = 7,
+    kUi64FieldNumber = 8,
+    kD64FieldNumber = 10,
+    kF32FieldNumber = 9,
+  };
+  // repeated uint32 uint32_vec = 16;
+  int uint32_vec_size() const;
+  private:
+  int _internal_uint32_vec_size() const;
+  public:
+  void clear_uint32_vec();
+  private:
+  uint32_t _internal_uint32_vec(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_uint32_vec() const;
+  void _internal_add_uint32_vec(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_uint32_vec();
+  public:
+  uint32_t uint32_vec(int index) const;
+  void set_uint32_vec(int index, uint32_t value);
+  void add_uint32_vec(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      uint32_vec() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_uint32_vec();
+
+  // repeated string str_vec = 17;
+  int str_vec_size() const;
+  private:
+  int _internal_str_vec_size() const;
+  public:
+  void clear_str_vec();
+  const std::string& str_vec(int index) const;
+  std::string* mutable_str_vec(int index);
+  void set_str_vec(int index, const std::string& value);
+  void set_str_vec(int index, std::string&& value);
+  void set_str_vec(int index, const char* value);
+  void set_str_vec(int index, const char* value, size_t size);
+  std::string* add_str_vec();
+  void add_str_vec(const std::string& value);
+  void add_str_vec(std::string&& value);
+  void add_str_vec(const char* value);
+  void add_str_vec(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& str_vec() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_str_vec();
+  private:
+  const std::string& _internal_str_vec(int index) const;
+  std::string* _internal_add_str_vec();
+  public:
+
+  // repeated uint32 uint32_array = 18;
+  int uint32_array_size() const;
+  private:
+  int _internal_uint32_array_size() const;
+  public:
+  void clear_uint32_array();
+  private:
+  uint32_t _internal_uint32_array(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_uint32_array() const;
+  void _internal_add_uint32_array(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_uint32_array();
+  public:
+  uint32_t uint32_array(int index) const;
+  void set_uint32_array(int index, uint32_t value);
+  void add_uint32_array(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      uint32_array() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_uint32_array();
+
+  // string str = 11;
+  void clear_str();
+  const std::string& str() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_str(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_str();
+  PROTOBUF_NODISCARD std::string* release_str();
+  void set_allocated_str(std::string* str);
+  private:
+  const std::string& _internal_str() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_str(const std::string& value);
+  std::string* _internal_mutable_str();
+  public:
+
+  // bytes byte_arry = 12;
+  void clear_byte_arry();
+  const std::string& byte_arry() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_byte_arry(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_byte_arry();
+  PROTOBUF_NODISCARD std::string* release_byte_arry();
+  void set_allocated_byte_arry(std::string* byte_arry);
+  private:
+  const std::string& _internal_byte_arry() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_byte_arry(const std::string& value);
+  std::string* _internal_mutable_byte_arry();
+  public:
+
+  // bytes ubyte_arry = 13;
+  void clear_ubyte_arry();
+  const std::string& ubyte_arry() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ubyte_arry(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ubyte_arry();
+  PROTOBUF_NODISCARD std::string* release_ubyte_arry();
+  void set_allocated_ubyte_arry(std::string* ubyte_arry);
+  private:
+  const std::string& _internal_ubyte_arry() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ubyte_arry(const std::string& value);
+  std::string* _internal_mutable_ubyte_arry();
+  public:
+
+  // bytes byte_vec = 14;
+  void clear_byte_vec();
+  const std::string& byte_vec() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_byte_vec(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_byte_vec();
+  PROTOBUF_NODISCARD std::string* release_byte_vec();
+  void set_allocated_byte_vec(std::string* byte_vec);
+  private:
+  const std::string& _internal_byte_vec() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_byte_vec(const std::string& value);
+  std::string* _internal_mutable_byte_vec();
+  public:
+
+  // bytes ubyte_vec = 15;
+  void clear_ubyte_vec();
+  const std::string& ubyte_vec() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ubyte_vec(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ubyte_vec();
+  PROTOBUF_NODISCARD std::string* release_ubyte_vec();
+  void set_allocated_ubyte_vec(std::string* ubyte_vec);
+  private:
+  const std::string& _internal_ubyte_vec() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ubyte_vec(const std::string& value);
+  std::string* _internal_mutable_ubyte_vec();
+  public:
+
+  // int32 i8 = 1;
+  void clear_i8();
+  int32_t i8() const;
+  void set_i8(int32_t value);
+  private:
+  int32_t _internal_i8() const;
+  void _internal_set_i8(int32_t value);
+  public:
+
+  // int32 i16 = 2;
+  void clear_i16();
+  int32_t i16() const;
+  void set_i16(int32_t value);
+  private:
+  int32_t _internal_i16() const;
+  void _internal_set_i16(int32_t value);
+  public:
+
+  // int64 i64 = 4;
+  void clear_i64();
+  int64_t i64() const;
+  void set_i64(int64_t value);
+  private:
+  int64_t _internal_i64() const;
+  void _internal_set_i64(int64_t value);
+  public:
+
+  // int32 i32 = 3;
+  void clear_i32();
+  int32_t i32() const;
+  void set_i32(int32_t value);
+  private:
+  int32_t _internal_i32() const;
+  void _internal_set_i32(int32_t value);
+  public:
+
+  // uint32 ui8 = 5;
+  void clear_ui8();
+  uint32_t ui8() const;
+  void set_ui8(uint32_t value);
+  private:
+  uint32_t _internal_ui8() const;
+  void _internal_set_ui8(uint32_t value);
+  public:
+
+  // uint32 ui16 = 6;
+  void clear_ui16();
+  uint32_t ui16() const;
+  void set_ui16(uint32_t value);
+  private:
+  uint32_t _internal_ui16() const;
+  void _internal_set_ui16(uint32_t value);
+  public:
+
+  // uint32 ui32 = 7;
+  void clear_ui32();
+  uint32_t ui32() const;
+  void set_ui32(uint32_t value);
+  private:
+  uint32_t _internal_ui32() const;
+  void _internal_set_ui32(uint32_t value);
+  public:
+
+  // uint64 ui64 = 8;
+  void clear_ui64();
+  uint64_t ui64() const;
+  void set_ui64(uint64_t value);
+  private:
+  uint64_t _internal_ui64() const;
+  void _internal_set_ui64(uint64_t value);
+  public:
+
+  // double d64 = 10;
+  void clear_d64();
+  double d64() const;
+  void set_d64(double value);
+  private:
+  double _internal_d64() const;
+  void _internal_set_d64(double value);
+  public:
+
+  // float f32 = 9;
+  void clear_f32();
+  float f32() const;
+  void set_f32(float value);
+  private:
+  float _internal_f32() const;
+  void _internal_set_f32(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:pb.RosMsg)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > uint32_vec_;
+  mutable std::atomic<int> _uint32_vec_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> str_vec_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > uint32_array_;
+  mutable std::atomic<int> _uint32_array_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr str_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr byte_arry_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ubyte_arry_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr byte_vec_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ubyte_vec_;
+  int32_t i8_;
+  int32_t i16_;
+  int64_t i64_;
+  int32_t i32_;
+  uint32_t ui8_;
+  uint32_t ui16_;
+  uint32_t ui32_;
+  uint64_t ui64_;
+  double d64_;
+  float f32_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_test_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RosTest2 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:pb.RosTest2) */ {
+ public:
+  inline RosTest2() : RosTest2(nullptr) {}
+  ~RosTest2() override;
+  explicit constexpr RosTest2(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RosTest2(const RosTest2& from);
+  RosTest2(RosTest2&& from) noexcept
+    : RosTest2() {
+    *this = ::std::move(from);
+  }
+
+  inline RosTest2& operator=(const RosTest2& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RosTest2& operator=(RosTest2&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RosTest2& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RosTest2* internal_default_instance() {
+    return reinterpret_cast<const RosTest2*>(
+               &_RosTest2_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(RosTest2& a, RosTest2& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RosTest2* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RosTest2* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RosTest2* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RosTest2>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RosTest2& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const RosTest2& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RosTest2* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "pb.RosTest2";
+  }
+  protected:
+  explicit RosTest2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStrVecFieldNumber = 17,
+  };
+  // repeated string str_vec = 17;
+  int str_vec_size() const;
+  private:
+  int _internal_str_vec_size() const;
+  public:
+  void clear_str_vec();
+  const std::string& str_vec(int index) const;
+  std::string* mutable_str_vec(int index);
+  void set_str_vec(int index, const std::string& value);
+  void set_str_vec(int index, std::string&& value);
+  void set_str_vec(int index, const char* value);
+  void set_str_vec(int index, const char* value, size_t size);
+  std::string* add_str_vec();
+  void add_str_vec(const std::string& value);
+  void add_str_vec(std::string&& value);
+  void add_str_vec(const char* value);
+  void add_str_vec(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& str_vec() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_str_vec();
+  private:
+  const std::string& _internal_str_vec(int index) const;
+  std::string* _internal_add_str_vec();
+  public:
+
+  // @@protoc_insertion_point(class_scope:pb.RosTest2)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> str_vec_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_test_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RosTest3 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:pb.RosTest3) */ {
+ public:
+  inline RosTest3() : RosTest3(nullptr) {}
+  ~RosTest3() override;
+  explicit constexpr RosTest3(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RosTest3(const RosTest3& from);
+  RosTest3(RosTest3&& from) noexcept
+    : RosTest3() {
+    *this = ::std::move(from);
+  }
+
+  inline RosTest3& operator=(const RosTest3& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RosTest3& operator=(RosTest3&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RosTest3& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RosTest3* internal_default_instance() {
+    return reinterpret_cast<const RosTest3*>(
+               &_RosTest3_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(RosTest3& a, RosTest3& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RosTest3* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RosTest3* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RosTest3* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RosTest3>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RosTest3& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const RosTest3& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RosTest3* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "pb.RosTest3";
+  }
+  protected:
+  explicit RosTest3(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUint32VecFieldNumber = 16,
+  };
+  // repeated uint32 uint32_vec = 16;
+  int uint32_vec_size() const;
+  private:
+  int _internal_uint32_vec_size() const;
+  public:
+  void clear_uint32_vec();
+  private:
+  uint32_t _internal_uint32_vec(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_uint32_vec() const;
+  void _internal_add_uint32_vec(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_uint32_vec();
+  public:
+  uint32_t uint32_vec(int index) const;
+  void set_uint32_vec(int index, uint32_t value);
+  void add_uint32_vec(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      uint32_vec() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_uint32_vec();
+
+  // @@protoc_insertion_point(class_scope:pb.RosTest3)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > uint32_vec_;
+  mutable std::atomic<int> _uint32_vec_cached_byte_size_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_test_2eproto;
+};
 // ===================================================================
 
 
@@ -1822,9 +2555,773 @@ Test3::mutable_vec() {
   return _internal_mutable_vec();
 }
 
+// -------------------------------------------------------------------
+
+// RosMsg
+
+// int32 i8 = 1;
+inline void RosMsg::clear_i8() {
+  i8_ = 0;
+}
+inline int32_t RosMsg::_internal_i8() const {
+  return i8_;
+}
+inline int32_t RosMsg::i8() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.i8)
+  return _internal_i8();
+}
+inline void RosMsg::_internal_set_i8(int32_t value) {
+  
+  i8_ = value;
+}
+inline void RosMsg::set_i8(int32_t value) {
+  _internal_set_i8(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.i8)
+}
+
+// int32 i16 = 2;
+inline void RosMsg::clear_i16() {
+  i16_ = 0;
+}
+inline int32_t RosMsg::_internal_i16() const {
+  return i16_;
+}
+inline int32_t RosMsg::i16() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.i16)
+  return _internal_i16();
+}
+inline void RosMsg::_internal_set_i16(int32_t value) {
+  
+  i16_ = value;
+}
+inline void RosMsg::set_i16(int32_t value) {
+  _internal_set_i16(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.i16)
+}
+
+// int32 i32 = 3;
+inline void RosMsg::clear_i32() {
+  i32_ = 0;
+}
+inline int32_t RosMsg::_internal_i32() const {
+  return i32_;
+}
+inline int32_t RosMsg::i32() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.i32)
+  return _internal_i32();
+}
+inline void RosMsg::_internal_set_i32(int32_t value) {
+  
+  i32_ = value;
+}
+inline void RosMsg::set_i32(int32_t value) {
+  _internal_set_i32(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.i32)
+}
+
+// int64 i64 = 4;
+inline void RosMsg::clear_i64() {
+  i64_ = int64_t{0};
+}
+inline int64_t RosMsg::_internal_i64() const {
+  return i64_;
+}
+inline int64_t RosMsg::i64() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.i64)
+  return _internal_i64();
+}
+inline void RosMsg::_internal_set_i64(int64_t value) {
+  
+  i64_ = value;
+}
+inline void RosMsg::set_i64(int64_t value) {
+  _internal_set_i64(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.i64)
+}
+
+// uint32 ui8 = 5;
+inline void RosMsg::clear_ui8() {
+  ui8_ = 0u;
+}
+inline uint32_t RosMsg::_internal_ui8() const {
+  return ui8_;
+}
+inline uint32_t RosMsg::ui8() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.ui8)
+  return _internal_ui8();
+}
+inline void RosMsg::_internal_set_ui8(uint32_t value) {
+  
+  ui8_ = value;
+}
+inline void RosMsg::set_ui8(uint32_t value) {
+  _internal_set_ui8(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.ui8)
+}
+
+// uint32 ui16 = 6;
+inline void RosMsg::clear_ui16() {
+  ui16_ = 0u;
+}
+inline uint32_t RosMsg::_internal_ui16() const {
+  return ui16_;
+}
+inline uint32_t RosMsg::ui16() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.ui16)
+  return _internal_ui16();
+}
+inline void RosMsg::_internal_set_ui16(uint32_t value) {
+  
+  ui16_ = value;
+}
+inline void RosMsg::set_ui16(uint32_t value) {
+  _internal_set_ui16(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.ui16)
+}
+
+// uint32 ui32 = 7;
+inline void RosMsg::clear_ui32() {
+  ui32_ = 0u;
+}
+inline uint32_t RosMsg::_internal_ui32() const {
+  return ui32_;
+}
+inline uint32_t RosMsg::ui32() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.ui32)
+  return _internal_ui32();
+}
+inline void RosMsg::_internal_set_ui32(uint32_t value) {
+  
+  ui32_ = value;
+}
+inline void RosMsg::set_ui32(uint32_t value) {
+  _internal_set_ui32(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.ui32)
+}
+
+// uint64 ui64 = 8;
+inline void RosMsg::clear_ui64() {
+  ui64_ = uint64_t{0u};
+}
+inline uint64_t RosMsg::_internal_ui64() const {
+  return ui64_;
+}
+inline uint64_t RosMsg::ui64() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.ui64)
+  return _internal_ui64();
+}
+inline void RosMsg::_internal_set_ui64(uint64_t value) {
+  
+  ui64_ = value;
+}
+inline void RosMsg::set_ui64(uint64_t value) {
+  _internal_set_ui64(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.ui64)
+}
+
+// float f32 = 9;
+inline void RosMsg::clear_f32() {
+  f32_ = 0;
+}
+inline float RosMsg::_internal_f32() const {
+  return f32_;
+}
+inline float RosMsg::f32() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.f32)
+  return _internal_f32();
+}
+inline void RosMsg::_internal_set_f32(float value) {
+  
+  f32_ = value;
+}
+inline void RosMsg::set_f32(float value) {
+  _internal_set_f32(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.f32)
+}
+
+// double d64 = 10;
+inline void RosMsg::clear_d64() {
+  d64_ = 0;
+}
+inline double RosMsg::_internal_d64() const {
+  return d64_;
+}
+inline double RosMsg::d64() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.d64)
+  return _internal_d64();
+}
+inline void RosMsg::_internal_set_d64(double value) {
+  
+  d64_ = value;
+}
+inline void RosMsg::set_d64(double value) {
+  _internal_set_d64(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.d64)
+}
+
+// string str = 11;
+inline void RosMsg::clear_str() {
+  str_.ClearToEmpty();
+}
+inline const std::string& RosMsg::str() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.str)
+  return _internal_str();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RosMsg::set_str(ArgT0&& arg0, ArgT... args) {
+ 
+ str_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:pb.RosMsg.str)
+}
+inline std::string* RosMsg::mutable_str() {
+  std::string* _s = _internal_mutable_str();
+  // @@protoc_insertion_point(field_mutable:pb.RosMsg.str)
+  return _s;
+}
+inline const std::string& RosMsg::_internal_str() const {
+  return str_.Get();
+}
+inline void RosMsg::_internal_set_str(const std::string& value) {
+  
+  str_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RosMsg::_internal_mutable_str() {
+  
+  return str_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RosMsg::release_str() {
+  // @@protoc_insertion_point(field_release:pb.RosMsg.str)
+  return str_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void RosMsg::set_allocated_str(std::string* str) {
+  if (str != nullptr) {
+    
+  } else {
+    
+  }
+  str_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), str,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (str_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    str_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:pb.RosMsg.str)
+}
+
+// bytes byte_arry = 12;
+inline void RosMsg::clear_byte_arry() {
+  byte_arry_.ClearToEmpty();
+}
+inline const std::string& RosMsg::byte_arry() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.byte_arry)
+  return _internal_byte_arry();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RosMsg::set_byte_arry(ArgT0&& arg0, ArgT... args) {
+ 
+ byte_arry_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:pb.RosMsg.byte_arry)
+}
+inline std::string* RosMsg::mutable_byte_arry() {
+  std::string* _s = _internal_mutable_byte_arry();
+  // @@protoc_insertion_point(field_mutable:pb.RosMsg.byte_arry)
+  return _s;
+}
+inline const std::string& RosMsg::_internal_byte_arry() const {
+  return byte_arry_.Get();
+}
+inline void RosMsg::_internal_set_byte_arry(const std::string& value) {
+  
+  byte_arry_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RosMsg::_internal_mutable_byte_arry() {
+  
+  return byte_arry_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RosMsg::release_byte_arry() {
+  // @@protoc_insertion_point(field_release:pb.RosMsg.byte_arry)
+  return byte_arry_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void RosMsg::set_allocated_byte_arry(std::string* byte_arry) {
+  if (byte_arry != nullptr) {
+    
+  } else {
+    
+  }
+  byte_arry_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), byte_arry,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (byte_arry_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    byte_arry_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:pb.RosMsg.byte_arry)
+}
+
+// bytes ubyte_arry = 13;
+inline void RosMsg::clear_ubyte_arry() {
+  ubyte_arry_.ClearToEmpty();
+}
+inline const std::string& RosMsg::ubyte_arry() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.ubyte_arry)
+  return _internal_ubyte_arry();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RosMsg::set_ubyte_arry(ArgT0&& arg0, ArgT... args) {
+ 
+ ubyte_arry_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:pb.RosMsg.ubyte_arry)
+}
+inline std::string* RosMsg::mutable_ubyte_arry() {
+  std::string* _s = _internal_mutable_ubyte_arry();
+  // @@protoc_insertion_point(field_mutable:pb.RosMsg.ubyte_arry)
+  return _s;
+}
+inline const std::string& RosMsg::_internal_ubyte_arry() const {
+  return ubyte_arry_.Get();
+}
+inline void RosMsg::_internal_set_ubyte_arry(const std::string& value) {
+  
+  ubyte_arry_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RosMsg::_internal_mutable_ubyte_arry() {
+  
+  return ubyte_arry_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RosMsg::release_ubyte_arry() {
+  // @@protoc_insertion_point(field_release:pb.RosMsg.ubyte_arry)
+  return ubyte_arry_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void RosMsg::set_allocated_ubyte_arry(std::string* ubyte_arry) {
+  if (ubyte_arry != nullptr) {
+    
+  } else {
+    
+  }
+  ubyte_arry_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ubyte_arry,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (ubyte_arry_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    ubyte_arry_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:pb.RosMsg.ubyte_arry)
+}
+
+// bytes byte_vec = 14;
+inline void RosMsg::clear_byte_vec() {
+  byte_vec_.ClearToEmpty();
+}
+inline const std::string& RosMsg::byte_vec() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.byte_vec)
+  return _internal_byte_vec();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RosMsg::set_byte_vec(ArgT0&& arg0, ArgT... args) {
+ 
+ byte_vec_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:pb.RosMsg.byte_vec)
+}
+inline std::string* RosMsg::mutable_byte_vec() {
+  std::string* _s = _internal_mutable_byte_vec();
+  // @@protoc_insertion_point(field_mutable:pb.RosMsg.byte_vec)
+  return _s;
+}
+inline const std::string& RosMsg::_internal_byte_vec() const {
+  return byte_vec_.Get();
+}
+inline void RosMsg::_internal_set_byte_vec(const std::string& value) {
+  
+  byte_vec_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RosMsg::_internal_mutable_byte_vec() {
+  
+  return byte_vec_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RosMsg::release_byte_vec() {
+  // @@protoc_insertion_point(field_release:pb.RosMsg.byte_vec)
+  return byte_vec_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void RosMsg::set_allocated_byte_vec(std::string* byte_vec) {
+  if (byte_vec != nullptr) {
+    
+  } else {
+    
+  }
+  byte_vec_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), byte_vec,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (byte_vec_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    byte_vec_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:pb.RosMsg.byte_vec)
+}
+
+// bytes ubyte_vec = 15;
+inline void RosMsg::clear_ubyte_vec() {
+  ubyte_vec_.ClearToEmpty();
+}
+inline const std::string& RosMsg::ubyte_vec() const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.ubyte_vec)
+  return _internal_ubyte_vec();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RosMsg::set_ubyte_vec(ArgT0&& arg0, ArgT... args) {
+ 
+ ubyte_vec_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:pb.RosMsg.ubyte_vec)
+}
+inline std::string* RosMsg::mutable_ubyte_vec() {
+  std::string* _s = _internal_mutable_ubyte_vec();
+  // @@protoc_insertion_point(field_mutable:pb.RosMsg.ubyte_vec)
+  return _s;
+}
+inline const std::string& RosMsg::_internal_ubyte_vec() const {
+  return ubyte_vec_.Get();
+}
+inline void RosMsg::_internal_set_ubyte_vec(const std::string& value) {
+  
+  ubyte_vec_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RosMsg::_internal_mutable_ubyte_vec() {
+  
+  return ubyte_vec_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RosMsg::release_ubyte_vec() {
+  // @@protoc_insertion_point(field_release:pb.RosMsg.ubyte_vec)
+  return ubyte_vec_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void RosMsg::set_allocated_ubyte_vec(std::string* ubyte_vec) {
+  if (ubyte_vec != nullptr) {
+    
+  } else {
+    
+  }
+  ubyte_vec_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ubyte_vec,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (ubyte_vec_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    ubyte_vec_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:pb.RosMsg.ubyte_vec)
+}
+
+// repeated uint32 uint32_vec = 16;
+inline int RosMsg::_internal_uint32_vec_size() const {
+  return uint32_vec_.size();
+}
+inline int RosMsg::uint32_vec_size() const {
+  return _internal_uint32_vec_size();
+}
+inline void RosMsg::clear_uint32_vec() {
+  uint32_vec_.Clear();
+}
+inline uint32_t RosMsg::_internal_uint32_vec(int index) const {
+  return uint32_vec_.Get(index);
+}
+inline uint32_t RosMsg::uint32_vec(int index) const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.uint32_vec)
+  return _internal_uint32_vec(index);
+}
+inline void RosMsg::set_uint32_vec(int index, uint32_t value) {
+  uint32_vec_.Set(index, value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.uint32_vec)
+}
+inline void RosMsg::_internal_add_uint32_vec(uint32_t value) {
+  uint32_vec_.Add(value);
+}
+inline void RosMsg::add_uint32_vec(uint32_t value) {
+  _internal_add_uint32_vec(value);
+  // @@protoc_insertion_point(field_add:pb.RosMsg.uint32_vec)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+RosMsg::_internal_uint32_vec() const {
+  return uint32_vec_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+RosMsg::uint32_vec() const {
+  // @@protoc_insertion_point(field_list:pb.RosMsg.uint32_vec)
+  return _internal_uint32_vec();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+RosMsg::_internal_mutable_uint32_vec() {
+  return &uint32_vec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+RosMsg::mutable_uint32_vec() {
+  // @@protoc_insertion_point(field_mutable_list:pb.RosMsg.uint32_vec)
+  return _internal_mutable_uint32_vec();
+}
+
+// repeated string str_vec = 17;
+inline int RosMsg::_internal_str_vec_size() const {
+  return str_vec_.size();
+}
+inline int RosMsg::str_vec_size() const {
+  return _internal_str_vec_size();
+}
+inline void RosMsg::clear_str_vec() {
+  str_vec_.Clear();
+}
+inline std::string* RosMsg::add_str_vec() {
+  std::string* _s = _internal_add_str_vec();
+  // @@protoc_insertion_point(field_add_mutable:pb.RosMsg.str_vec)
+  return _s;
+}
+inline const std::string& RosMsg::_internal_str_vec(int index) const {
+  return str_vec_.Get(index);
+}
+inline const std::string& RosMsg::str_vec(int index) const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.str_vec)
+  return _internal_str_vec(index);
+}
+inline std::string* RosMsg::mutable_str_vec(int index) {
+  // @@protoc_insertion_point(field_mutable:pb.RosMsg.str_vec)
+  return str_vec_.Mutable(index);
+}
+inline void RosMsg::set_str_vec(int index, const std::string& value) {
+  str_vec_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.str_vec)
+}
+inline void RosMsg::set_str_vec(int index, std::string&& value) {
+  str_vec_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:pb.RosMsg.str_vec)
+}
+inline void RosMsg::set_str_vec(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  str_vec_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:pb.RosMsg.str_vec)
+}
+inline void RosMsg::set_str_vec(int index, const char* value, size_t size) {
+  str_vec_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:pb.RosMsg.str_vec)
+}
+inline std::string* RosMsg::_internal_add_str_vec() {
+  return str_vec_.Add();
+}
+inline void RosMsg::add_str_vec(const std::string& value) {
+  str_vec_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:pb.RosMsg.str_vec)
+}
+inline void RosMsg::add_str_vec(std::string&& value) {
+  str_vec_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:pb.RosMsg.str_vec)
+}
+inline void RosMsg::add_str_vec(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  str_vec_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:pb.RosMsg.str_vec)
+}
+inline void RosMsg::add_str_vec(const char* value, size_t size) {
+  str_vec_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:pb.RosMsg.str_vec)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RosMsg::str_vec() const {
+  // @@protoc_insertion_point(field_list:pb.RosMsg.str_vec)
+  return str_vec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RosMsg::mutable_str_vec() {
+  // @@protoc_insertion_point(field_mutable_list:pb.RosMsg.str_vec)
+  return &str_vec_;
+}
+
+// repeated uint32 uint32_array = 18;
+inline int RosMsg::_internal_uint32_array_size() const {
+  return uint32_array_.size();
+}
+inline int RosMsg::uint32_array_size() const {
+  return _internal_uint32_array_size();
+}
+inline void RosMsg::clear_uint32_array() {
+  uint32_array_.Clear();
+}
+inline uint32_t RosMsg::_internal_uint32_array(int index) const {
+  return uint32_array_.Get(index);
+}
+inline uint32_t RosMsg::uint32_array(int index) const {
+  // @@protoc_insertion_point(field_get:pb.RosMsg.uint32_array)
+  return _internal_uint32_array(index);
+}
+inline void RosMsg::set_uint32_array(int index, uint32_t value) {
+  uint32_array_.Set(index, value);
+  // @@protoc_insertion_point(field_set:pb.RosMsg.uint32_array)
+}
+inline void RosMsg::_internal_add_uint32_array(uint32_t value) {
+  uint32_array_.Add(value);
+}
+inline void RosMsg::add_uint32_array(uint32_t value) {
+  _internal_add_uint32_array(value);
+  // @@protoc_insertion_point(field_add:pb.RosMsg.uint32_array)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+RosMsg::_internal_uint32_array() const {
+  return uint32_array_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+RosMsg::uint32_array() const {
+  // @@protoc_insertion_point(field_list:pb.RosMsg.uint32_array)
+  return _internal_uint32_array();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+RosMsg::_internal_mutable_uint32_array() {
+  return &uint32_array_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+RosMsg::mutable_uint32_array() {
+  // @@protoc_insertion_point(field_mutable_list:pb.RosMsg.uint32_array)
+  return _internal_mutable_uint32_array();
+}
+
+// -------------------------------------------------------------------
+
+// RosTest2
+
+// repeated string str_vec = 17;
+inline int RosTest2::_internal_str_vec_size() const {
+  return str_vec_.size();
+}
+inline int RosTest2::str_vec_size() const {
+  return _internal_str_vec_size();
+}
+inline void RosTest2::clear_str_vec() {
+  str_vec_.Clear();
+}
+inline std::string* RosTest2::add_str_vec() {
+  std::string* _s = _internal_add_str_vec();
+  // @@protoc_insertion_point(field_add_mutable:pb.RosTest2.str_vec)
+  return _s;
+}
+inline const std::string& RosTest2::_internal_str_vec(int index) const {
+  return str_vec_.Get(index);
+}
+inline const std::string& RosTest2::str_vec(int index) const {
+  // @@protoc_insertion_point(field_get:pb.RosTest2.str_vec)
+  return _internal_str_vec(index);
+}
+inline std::string* RosTest2::mutable_str_vec(int index) {
+  // @@protoc_insertion_point(field_mutable:pb.RosTest2.str_vec)
+  return str_vec_.Mutable(index);
+}
+inline void RosTest2::set_str_vec(int index, const std::string& value) {
+  str_vec_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:pb.RosTest2.str_vec)
+}
+inline void RosTest2::set_str_vec(int index, std::string&& value) {
+  str_vec_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:pb.RosTest2.str_vec)
+}
+inline void RosTest2::set_str_vec(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  str_vec_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:pb.RosTest2.str_vec)
+}
+inline void RosTest2::set_str_vec(int index, const char* value, size_t size) {
+  str_vec_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:pb.RosTest2.str_vec)
+}
+inline std::string* RosTest2::_internal_add_str_vec() {
+  return str_vec_.Add();
+}
+inline void RosTest2::add_str_vec(const std::string& value) {
+  str_vec_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:pb.RosTest2.str_vec)
+}
+inline void RosTest2::add_str_vec(std::string&& value) {
+  str_vec_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:pb.RosTest2.str_vec)
+}
+inline void RosTest2::add_str_vec(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  str_vec_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:pb.RosTest2.str_vec)
+}
+inline void RosTest2::add_str_vec(const char* value, size_t size) {
+  str_vec_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:pb.RosTest2.str_vec)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RosTest2::str_vec() const {
+  // @@protoc_insertion_point(field_list:pb.RosTest2.str_vec)
+  return str_vec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RosTest2::mutable_str_vec() {
+  // @@protoc_insertion_point(field_mutable_list:pb.RosTest2.str_vec)
+  return &str_vec_;
+}
+
+// -------------------------------------------------------------------
+
+// RosTest3
+
+// repeated uint32 uint32_vec = 16;
+inline int RosTest3::_internal_uint32_vec_size() const {
+  return uint32_vec_.size();
+}
+inline int RosTest3::uint32_vec_size() const {
+  return _internal_uint32_vec_size();
+}
+inline void RosTest3::clear_uint32_vec() {
+  uint32_vec_.Clear();
+}
+inline uint32_t RosTest3::_internal_uint32_vec(int index) const {
+  return uint32_vec_.Get(index);
+}
+inline uint32_t RosTest3::uint32_vec(int index) const {
+  // @@protoc_insertion_point(field_get:pb.RosTest3.uint32_vec)
+  return _internal_uint32_vec(index);
+}
+inline void RosTest3::set_uint32_vec(int index, uint32_t value) {
+  uint32_vec_.Set(index, value);
+  // @@protoc_insertion_point(field_set:pb.RosTest3.uint32_vec)
+}
+inline void RosTest3::_internal_add_uint32_vec(uint32_t value) {
+  uint32_vec_.Add(value);
+}
+inline void RosTest3::add_uint32_vec(uint32_t value) {
+  _internal_add_uint32_vec(value);
+  // @@protoc_insertion_point(field_add:pb.RosTest3.uint32_vec)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+RosTest3::_internal_uint32_vec() const {
+  return uint32_vec_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+RosTest3::uint32_vec() const {
+  // @@protoc_insertion_point(field_list:pb.RosTest3.uint32_vec)
+  return _internal_uint32_vec();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+RosTest3::_internal_mutable_uint32_vec() {
+  return &uint32_vec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+RosTest3::mutable_uint32_vec() {
+  // @@protoc_insertion_point(field_mutable_list:pb.RosTest3.uint32_vec)
+  return _internal_mutable_uint32_vec();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
